@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Мамам рядом — помощь после родов</title>
+  <meta name="description" content="Мамам рядом — сайт, где мамы после родов могут попросить бытовую помощь, а соседи, друзья и волонтёры выбирают конкретные заявки: еда, уборка, стирка, покупки и короткая передышка." />
+  <meta property="og:title" content="Мамам рядом — помощь после родов" />
+  <meta property="og:description" content="Найдите, кому рядом нужна помощь с едой, уборкой, стиркой, покупками и заботой в первые недели после родов." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.pexels.com/photos/7919582/pexels-photo-7919582.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #24302c;
+      --muted: #68736d;
+      --paper: #ffffff;
+      --soft: #f7efe4;
+      --warm: #fff8ef;
+      --mint: #dfeee5;
+      --green: #1f6b4f;
+      --green-strong: #0f4f39;
+      --coral: #d45d4c;
+      --coral-strong: #bd4e3f;
+      --yellow: #f3c34f;
+      --blue: #314c72;
+      --line: rgba(36, 48, 44, 0.13);
+      --shadow: 0 22px 54px rgba(42, 51, 47, 0.13);
+      --shadow-soft: 0 10px 26px rgba(42, 51, 47, 0.09);
+      --font-ui: Manrope, Inter, "Segoe UI", Arial, sans-serif;
+      --font-display: Lora, Georgia, serif;
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, var(--warm) 0, #fffaf5 380px, #ffffff 980px);
+      font-family: var(--font-ui);
+      line-height: 1.55;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    ::selection {
+      color: white;
+      background: var(--green);
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 250, 245, 0.88);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 22px rgba(36, 48, 44, 0.05);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 850;
+      font-size: 19px;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background:
+        linear-gradient(145deg, var(--green), #2e8060 54%, var(--coral));
+      box-shadow: 0 10px 22px rgba(31, 107, 79, 0.22);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: #4d535b;
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .nav-cta {
+      padding: 10px 16px;
+      border-radius: 999px;
+      color: white;
+      background: var(--green);
+      box-shadow: 0 10px 22px rgba(31, 107, 79, 0.16);
+    }
+
+    .hero {
+      min-height: clamp(600px, 78svh, 790px);
+      display: grid;
+      align-items: end;
+      position: relative;
+      isolation: isolate;
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(18, 29, 26, 0.86), rgba(18, 29, 26, 0.6) 48%, rgba(18, 29, 26, 0.18)),
+        linear-gradient(0deg, rgba(15, 31, 27, 0.44), rgba(15, 31, 27, 0.04) 48%),
+        url("https://images.pexels.com/photos/7919582/pexels-photo-7919582.jpeg?auto=compress&cs=tinysrgb&w=1800") center / cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 0;
+      height: 88px;
+      background: linear-gradient(180deg, transparent, rgba(11, 22, 19, 0.76));
+      pointer-events: none;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      max-width: 760px;
+      padding: 76px 0 52px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+      font-size: 14px;
+      font-weight: 750;
+      margin-bottom: 22px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 20px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(46px, 7vw, 86px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .lead {
+      max-width: 680px;
+      margin-bottom: 30px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: clamp(18px, 2vw, 22px);
+      text-wrap: pretty;
+    }
+
+    .actions,
+    .form-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 20px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 820;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 32px rgba(36, 48, 44, 0.16);
+    }
+
+    .button:focus-visible,
+    .filter-button:focus-visible,
+    .request-action:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid rgba(243, 195, 79, 0.72);
+      outline-offset: 3px;
+    }
+
+    .button-primary {
+      color: white;
+      background: var(--coral);
+      box-shadow: 0 16px 28px rgba(212, 93, 76, 0.24);
+    }
+
+    .button-primary:hover {
+      background: var(--coral-strong);
+    }
+
+    .button-secondary {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-note {
+      width: min(560px, 100%);
+      margin-top: 24px;
+      padding: 15px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.13);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-note-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-note p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 15px;
+    }
+
+    .button-primary-dark {
+      color: white;
+      background: var(--green);
+      box-shadow: 0 16px 28px rgba(31, 107, 79, 0.2);
+    }
+
+    .button-primary-dark:hover {
+      background: var(--green-strong);
+    }
+
+    .button-quiet {
+      color: var(--green-strong);
+      border-color: rgba(31, 107, 79, 0.18);
+      background: white;
+    }
+
+    .hero-strip {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(11, 22, 19, 0.68);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-strip-inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+    }
+
+    .metric {
+      min-height: 94px;
+      padding: 18px 20px;
+      border-left: 1px solid rgba(255, 255, 255, 0.14);
+      transition: background 0.18s ease;
+    }
+
+    .metric:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .metric:first-child {
+      border-left: 0;
+    }
+
+    .metric strong {
+      display: block;
+      color: white;
+      font-size: 24px;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .metric span {
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 14px;
+    }
+
+    .section {
+      padding: 82px 0;
+    }
+
+    .section-alt {
+      background:
+        linear-gradient(180deg, #eef5f1 0, #f7fbf8 100%);
+    }
+
+    .section-dark {
+      color: white;
+      background:
+        linear-gradient(180deg, #17251f 0, #22332b 100%);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 36px;
+      margin-bottom: 34px;
+    }
+
+    .kicker {
+      margin-bottom: 10px;
+      color: var(--coral);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .section-dark .kicker {
+      color: var(--yellow);
+    }
+
+    h2 {
+      max-width: 740px;
+      margin-bottom: 0;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(32px, 5vw, 54px);
+      line-height: 1.02;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .section-copy {
+      max-width: 420px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .section-dark .section-copy,
+    .section-dark .card-text {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .audience-card {
+      min-height: 270px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .audience-card:hover,
+    .step:hover,
+    .help-card:hover,
+    .request-card:hover,
+    .after-card:hover,
+    .quick-help-card:hover,
+    .faq-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 58px rgba(42, 51, 47, 0.15);
+    }
+
+    .audience-card:first-child {
+      border-top: 6px solid var(--coral);
+    }
+
+    .audience-card:last-child {
+      border-top: 6px solid var(--green);
+    }
+
+    .audience-card p {
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 9px;
+      margin: 18px 0 24px;
+      padding: 0;
+      list-style: none;
+      color: #3e454d;
+    }
+
+    .mini-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .mini-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .audience-card:last-child .mini-list li::before {
+      background: var(--green);
+    }
+
+    .steps,
+    .trust-grid,
+    .after-grid,
+    .quick-help-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .step,
+    .help-card,
+    .request-card,
+    .trust-card,
+    .after-card,
+    .quick-help-card,
+    .faq-item,
+    .form-panel,
+    .intro-panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .step,
+    .trust-card,
+    .after-card,
+    .quick-help-card {
+      padding: 24px;
+    }
+
+    .step-number {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      border-radius: 50%;
+      color: white;
+      background: linear-gradient(145deg, var(--blue), var(--green));
+      font-weight: 900;
+      box-shadow: 0 12px 24px rgba(49, 76, 114, 0.2);
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-weight: 800;
+      font-size: 21px;
+      line-height: 1.18;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
+    .card-text {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .help-card {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #ffffff 0, #fffaf4 100%);
+    }
+
+    .help-card-mark {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 50%;
+      color: var(--green-strong);
+      background: var(--mint);
+      font-weight: 900;
+    }
+
+    .help-card-note {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: #4d5a54;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: var(--green-strong);
+      background: var(--mint);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .quick-help-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--green-strong);
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .quick-help-card {
+      background:
+        linear-gradient(180deg, #ffffff 0, #fffaf4 100%);
+    }
+
+    .requests-layout {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .request-aside {
+      position: sticky;
+      top: 92px;
+      padding: 28px;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, var(--green-strong), var(--green) 62%, #2c7c5d);
+      box-shadow: var(--shadow);
+    }
+
+    .request-aside h2 {
+      margin-bottom: 16px;
+      color: white;
+    }
+
+    .request-aside p {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 17px;
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .filter-button {
+      padding: 9px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: white;
+      background: rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      font-weight: 780;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .filter-button:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .filter-button.is-active {
+      color: var(--green-strong);
+      background: white;
+    }
+
+    .request-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .request-card {
+      padding: 22px;
+      border-left: 6px solid var(--mint);
+    }
+
+    .request-card[data-kind="food"] {
+      border-left-color: var(--coral);
+    }
+
+    .request-card[data-kind="cleaning"] {
+      border-left-color: var(--blue);
+    }
+
+    .request-card[data-kind="shopping"] {
+      border-left-color: var(--yellow);
+    }
+
+    .request-card[hidden] {
+      display: none;
+    }
+
+    .request-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      flex: 0 0 auto;
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #79430f;
+      background: #fff0c2;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .request-meta {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .request-facts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin: 14px 0 0;
+    }
+
+    .request-fact {
+      padding: 10px 11px;
+      border-radius: var(--radius);
+      background: #f6f8f7;
+      color: #3f4750;
+      font-size: 13px;
+    }
+
+    .request-fact strong {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--green-strong);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .request-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .request-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill {
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #415264;
+      background: #eef1f4;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .request-action {
+      min-height: 38px;
+      padding: 9px 13px;
+      border: 1px solid rgba(31, 107, 79, 0.2);
+      border-radius: 999px;
+      color: var(--green-strong);
+      background: white;
+      cursor: pointer;
+      font-weight: 850;
+      box-shadow: none;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .request-action:hover {
+      transform: translateY(-1px);
+      border-color: rgba(31, 107, 79, 0.42);
+      background: var(--mint);
+    }
+
+    .trust-card {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.06);
+      box-shadow: none;
+    }
+
+    .trust-card .tag {
+      color: #17251f;
+      background: var(--yellow);
+    }
+
+    .after-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .after-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 64px;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(212, 93, 76, 0.08));
+      pointer-events: none;
+    }
+
+    .after-card::before {
+      content: attr(data-step);
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 18px;
+      border-radius: 50%;
+      color: white;
+      background: var(--coral);
+      font-weight: 900;
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .faq-item {
+      padding: 22px;
+      box-shadow: none;
+    }
+
+    .faq-item h3 {
+      font-size: 19px;
+    }
+
+    .form-section {
+      padding: 78px 0 92px;
+      background:
+        linear-gradient(180deg, var(--soft) 0, #fff8ef 100%);
+    }
+
+    .form-layout {
+      display: grid;
+      grid-template-columns: 0.86fr 1.14fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .intro-panel,
+    .form-panel {
+      padding: 28px;
+    }
+
+    .intro-panel {
+      color: white;
+      background:
+        linear-gradient(145deg, var(--green-strong), var(--green));
+    }
+
+    .intro-panel p {
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 17px;
+    }
+
+    .intro-panel .kicker {
+      color: var(--yellow);
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: #34383e;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 1px solid rgba(32, 33, 36, 0.18);
+      border-radius: var(--radius);
+      padding: 13px 14px;
+      color: var(--ink);
+      background: white;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: rgba(31, 107, 79, 0.7);
+      box-shadow: 0 0 0 4px rgba(31, 107, 79, 0.12);
+    }
+
+    .form-hint,
+    .form-result {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .form-result {
+      min-height: 20px;
+      margin: 0;
+      color: var(--green-strong);
+      font-weight: 750;
+    }
+
+    .footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+      color: #69707a;
+      background: white;
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .credits {
+      max-width: 660px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .section-head,
+      .requests-layout,
+      .form-layout,
+      .faq-grid {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .section-copy {
+        margin-top: 14px;
+        max-width: 680px;
+      }
+
+      .steps,
+      .trust-grid,
+      .after-grid,
+      .quick-help-grid,
+      .audience-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .help-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .request-aside {
+        position: static;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav-inner {
+        min-height: 62px;
+      }
+
+      .nav-links a:not(.nav-cta) {
+        display: none;
+      }
+
+      .nav-cta {
+        padding: 9px 12px;
+        font-size: 14px;
+      }
+
+      .hero {
+        min-height: 620px;
+        background-position: 58% center;
+      }
+
+      .hero-content {
+        padding: 56px 0 34px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 13vw, 58px);
+      }
+
+      .lead {
+        font-size: 17px;
+      }
+
+      .hero-strip-inner,
+      .field-grid,
+      .help-grid,
+      .request-facts {
+        grid-template-columns: 1fr;
+      }
+
+      .metric {
+        min-height: auto;
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      .metric:first-child {
+        border-top: 0;
+      }
+
+      .section,
+      .form-section {
+        padding: 56px 0;
+      }
+
+      .intro-panel,
+      .form-panel,
+      .request-aside,
+      .audience-card,
+      .step,
+      .trust-card,
+      .after-card,
+      .quick-help-card,
+      .faq-item {
+        padding: 20px;
+      }
+
+      .request-top {
+        display: block;
+      }
+
+      .request-footer {
+        display: grid;
+        justify-content: stretch;
+      }
+
+      .request-action {
+        width: 100%;
+      }
+
+      .status {
+        display: inline-flex;
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Мамам рядом">
+        <span class="brand-mark">М</span>
+        <span>Мамам рядом</span>
+      </a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="#for-whom">Для кого</a>
+        <a href="#how">Как работает</a>
+        <a href="#help">Чем помочь</a>
+        <a href="#requests">Заявки</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-cta" href="#form">Оставить заявку</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Мамам рядом">
+      <div class="container">
+        <div class="hero-content">
+          <div class="eyebrow">Первые недели после родов становятся легче, когда рядом есть люди</div>
+          <h1>Мамам рядом</h1>
+          <p class="lead">Сервис соединяет мам после родов с людьми рядом, которые могут помочь с едой, уборкой, стиркой, аптекой, покупками и короткой передышкой.</p>
+          <div class="actions">
+            <a class="button button-primary" href="#form" data-role-link="получить помощь">Я мама, мне нужна помощь</a>
+            <a class="button button-secondary" href="#requests">Я хочу помочь маме</a>
+          </div>
+          <div class="hero-note" aria-label="Пример заявки">
+            <div class="hero-note-top">
+              <span>пример заявки</span>
+              <span>30 минут</span>
+            </div>
+            <p>Забрать оплаченный заказ из аптеки и оставить у консьержа сегодня после 18:00.</p>
+          </div>
+        </div>
+      </div>
+      <div class="hero-strip" aria-label="Коротко о сервисе">
+        <div class="container hero-strip-inner">
+          <div class="metric"><strong>1 дело</strong><span>помощник берёт только то, что реально может сделать</span></div>
+          <div class="metric"><strong>2 часа</strong><span>часто достаточно, чтобы дома стало спокойнее</span></div>
+          <div class="metric"><strong>0 стыда</strong><span>просить поддержки после родов нормально</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="for-whom">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Выберите свой путь</div>
+            <h2>Два понятных сценария: попросить помощь или взять одно дело</h2>
+          </div>
+          <p class="section-copy">Выберите, что сейчас ближе: попросить поддержку для себя или помочь другой семье рядом.</p>
+        </div>
+        <div class="audience-grid">
+          <article class="audience-card">
+            <div>
+              <span class="tag">для мамы</span>
+              <h3>Если вы недавно родили</h3>
+              <p>Можно попросить не “помогите вообще”, а конкретное бытовое дело на сегодня или ближайшие дни.</p>
+              <ul class="mini-list">
+                <li>не нужно публиковать полный адрес</li>
+                <li>можно указать ограничения по еде, времени и визиту</li>
+                <li>координатор уточнит детали перед передачей контакта</li>
+              </ul>
+            </div>
+            <a class="button button-primary" href="#form" data-role-link="получить помощь">Оставить просьбу</a>
+          </article>
+          <article class="audience-card">
+            <div>
+              <span class="tag">для помощника</span>
+              <h3>Если вы хотите поддержать</h3>
+              <p>Выберите задачу, которую действительно можете сделать: без обещаний на месяц и без сложной переписки.</p>
+              <ul class="mini-list">
+                <li>видно, сколько времени займёт дело</li>
+                <li>можно помогать едой, покупками, уборкой или стиркой</li>
+                <li>контакт передаётся только после подтверждения</li>
+              </ul>
+            </div>
+            <a class="button button-primary-dark" href="#requests">Посмотреть заявки</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="how">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Как работает</div>
+            <h2>После заявки всё идёт по спокойному маршруту</h2>
+          </div>
+          <p class="section-copy">Самое важное для мамы: понимать, что произойдёт дальше и кто увидит личные данные.</p>
+        </div>
+        <div class="after-grid">
+          <article class="after-card" data-step="1">
+            <h3>Мама пишет короткую просьбу</h3>
+            <p class="card-text">В заявке достаточно района, времени, типа помощи и контакта. Полный адрес не нужен на первом шаге.</p>
+          </article>
+          <article class="after-card" data-step="2">
+            <h3>Координатор уточняет детали</h3>
+            <p class="card-text">Проверяет, что задача бытовая, понятная и безопасная: что принести, когда прийти и какие есть ограничения.</p>
+          </article>
+          <article class="after-card" data-step="3">
+            <h3>Помощник берёт одно дело</h3>
+            <p class="card-text">Видит район, время и объём задачи. Контакты передаются только после подтверждения обеих сторон.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Если времени мало</div>
+            <h2>Помощь может быть небольшой, но очень конкретной</h2>
+          </div>
+          <p class="section-copy">Даже короткое дело может дать маме время поесть, принять душ или просто выдохнуть.</p>
+        </div>
+        <div class="quick-help-grid">
+          <article class="quick-help-card">
+            <strong>20 минут</strong>
+            <h3>Забрать заказ</h3>
+            <p class="card-text">Аптека, готовая доставка, вода или оплаченные продукты у пункта выдачи.</p>
+          </article>
+          <article class="quick-help-card">
+            <strong>40 минут</strong>
+            <h3>Купить нужное рядом</h3>
+            <p class="card-text">Подгузники, простые продукты, бытовая химия или смесь по списку.</p>
+          </article>
+          <article class="quick-help-card">
+            <strong>1-2 часа</strong>
+            <h3>Закрыть бытовую задачу</h3>
+            <p class="card-text">Суп, стирка, лёгкая уборка кухни, вынос мусора или помощь с вещами.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Как работает для помощника</div>
+            <h2>Не нужно брать на себя больше, чем можете</h2>
+          </div>
+          <p class="section-copy">Одна заявка — одно дело. Это делает поддержку устойчивой и не выматывает тех, кто помогает.</p>
+        </div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">1</div>
+            <h3>Выберите подходящую заявку</h3>
+            <p class="card-text">Смотрите тип помощи, примерное время, район и ограничения: без визита в квартиру, после 18:00, только передать у двери.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">2</div>
+            <h3>Оставьте контакт</h3>
+            <p class="card-text">Координатор связывается с вами и подтверждает, что задача всё ещё актуальна.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">3</div>
+            <h3>Сделайте согласованное дело</h3>
+            <p class="card-text">После подтверждения вы получаете нужные детали и делаете только то, о чём договорились.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="help">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Чем помочь</div>
+            <h2>Обычные дела, которые после родов становятся большими</h2>
+          </div>
+          <p class="section-copy">Суп, чистая кухня, разобранная стирка или пакет продуктов иногда меняют весь день семьи.</p>
+        </div>
+        <div class="help-grid">
+          <article class="help-card">
+            <div>
+              <div class="help-card-mark">01</div>
+              <span class="tag">еда</span>
+              <h3>Приготовить еду</h3>
+              <p class="card-text">Суп, простые блюда, заготовки на пару дней, аккуратная передача у двери.</p>
+            </div>
+            <div class="help-card-note">подходит на 1-2 часа</div>
+          </article>
+          <article class="help-card">
+            <div>
+              <div class="help-card-mark">02</div>
+              <span class="tag">уборка</span>
+              <h3>Навести порядок</h3>
+              <p class="card-text">Кухня, пол, ванная, мусор, поверхности вокруг кроватки, без тяжёлых вещей.</p>
+            </div>
+            <div class="help-card-note">без генеральной уборки</div>
+          </article>
+          <article class="help-card">
+            <div>
+              <div class="help-card-mark">03</div>
+              <span class="tag">стирка</span>
+              <h3>Разобрать бельё</h3>
+              <p class="card-text">Развесить, сложить детские вещи, забрать заказ из химчистки или прачечной.</p>
+            </div>
+            <div class="help-card-note">понятная короткая задача</div>
+          </article>
+          <article class="help-card">
+            <div>
+              <div class="help-card-mark">04</div>
+              <span class="tag">покупки</span>
+              <h3>Сходить в магазин</h3>
+              <p class="card-text">Продукты, аптека, подгузники, вода, доставка до двери или консьержа.</p>
+            </div>
+            <div class="help-card-note">можно сделать по пути</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="requests">
+      <div class="container requests-layout">
+        <aside class="request-aside">
+          <div class="kicker">Открытые заявки</div>
+          <h2>Выберите то, что можете сделать сегодня</h2>
+          <p>В карточке сразу видно, что нужно, где примерно, когда и сколько времени займёт помощь.</p>
+          <div class="filter-row" aria-label="Фильтры заявок">
+            <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
+            <button class="filter-button" type="button" data-filter="food" aria-pressed="false">Еда</button>
+            <button class="filter-button" type="button" data-filter="cleaning" aria-pressed="false">Уборка</button>
+            <button class="filter-button" type="button" data-filter="shopping" aria-pressed="false">Покупки</button>
+          </div>
+        </aside>
+        <div class="request-list" aria-live="polite">
+          <article class="request-card" data-kind="food">
+            <div class="request-top">
+              <h3>Еда на два дня после выписки</h3>
+              <span class="status">свободно</span>
+            </div>
+            <div class="request-meta">Мама с новорождённым · 2 недели после родов · район передаст координатор</div>
+            <p class="card-text">Нужны простые блюда без острого: суп, каша, запечённые овощи. Можно передать у двери.</p>
+            <div class="request-facts">
+              <div class="request-fact"><strong>Где</strong>Северный район</div>
+              <div class="request-fact"><strong>Когда</strong>завтра до 18:00</div>
+              <div class="request-fact"><strong>Займёт</strong>1-2 часа</div>
+              <div class="request-fact"><strong>Контакт</strong>через координатора</div>
+            </div>
+            <div class="request-footer">
+              <div class="request-tags">
+                <span class="pill">1-2 часа</span>
+                <span class="pill">без визита в квартиру</span>
+              </div>
+              <button class="request-action" type="button" data-request-title="Еда на два дня после выписки" data-request-kind="еда" data-request-district="Северный район">Откликнуться</button>
+            </div>
+          </article>
+          <article class="request-card" data-kind="cleaning">
+            <div class="request-top">
+              <h3>Лёгкая уборка кухни и пола</h3>
+              <span class="status">свободно</span>
+            </div>
+            <div class="request-meta">После кесарева · нужно 1-1,5 часа · вечер буднего дня</div>
+            <p class="card-text">Протереть поверхности, вынести мусор, помыть пол. Без перестановок и тяжёлых предметов.</p>
+            <div class="request-facts">
+              <div class="request-fact"><strong>Где</strong>центр города</div>
+              <div class="request-fact"><strong>Когда</strong>после 18:00</div>
+              <div class="request-fact"><strong>Займёт</strong>до 1,5 часа</div>
+              <div class="request-fact"><strong>Контакт</strong>после отклика</div>
+            </div>
+            <div class="request-footer">
+              <div class="request-tags">
+                <span class="pill">уборка</span>
+                <span class="pill">после 18:00</span>
+              </div>
+              <button class="request-action" type="button" data-request-title="Лёгкая уборка кухни и пола" data-request-kind="уборка" data-request-district="центр города">Откликнуться</button>
+            </div>
+          </article>
+          <article class="request-card" data-kind="shopping">
+            <div class="request-top">
+              <h3>Забрать заказ из аптеки</h3>
+              <span class="status">сегодня</span>
+            </div>
+            <div class="request-meta">Мама дома одна · ближайшее время после 18:00</div>
+            <p class="card-text">Нужно забрать оплаченный заказ и оставить у консьержа. Контакт передаст координатор.</p>
+            <div class="request-facts">
+              <div class="request-fact"><strong>Где</strong>аптека рядом с домом</div>
+              <div class="request-fact"><strong>Когда</strong>сегодня</div>
+              <div class="request-fact"><strong>Займёт</strong>около 30 минут</div>
+              <div class="request-fact"><strong>Контакт</strong>через координатора</div>
+            </div>
+            <div class="request-footer">
+              <div class="request-tags">
+                <span class="pill">аптека</span>
+                <span class="pill">30 минут</span>
+              </div>
+              <button class="request-action" type="button" data-request-title="Забрать заказ из аптеки" data-request-kind="покупки / аптека" data-request-district="аптека рядом с домом">Откликнуться</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" aria-labelledby="trust-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Безопасность</div>
+            <h2 id="trust-title">Помощь должна быть бережной</h2>
+          </div>
+          <p class="section-copy">Проект закрывает бытовые задачи и не заменяет врача, няню, психолога или социальную службу.</p>
+        </div>
+        <div class="trust-grid">
+          <article class="trust-card">
+            <span class="tag">приватность</span>
+            <h3>Адрес не публикуется</h3>
+            <p class="card-text">В открытой заявке видны только район, тип помощи и удобное время.</p>
+          </article>
+          <article class="trust-card">
+            <span class="tag">границы</span>
+            <h3>Задача описана заранее</h3>
+            <p class="card-text">Помощник знает, что сделать, сколько времени это займёт и где заканчивается просьба.</p>
+          </article>
+          <article class="trust-card">
+            <span class="tag">уважение</span>
+            <h3>Без оценки и советов</h3>
+            <p class="card-text">Главное правило: помогать делом, не учить маму жить и не вторгаться в личное.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Важные вопросы</div>
+            <h2>Коротко о том, что может тревожить</h2>
+          </div>
+          <p class="section-copy">Чем меньше неопределённости, тем легче маме попросить поддержку, а помощнику — спокойно откликнуться.</p>
+        </div>
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>Нужно ли писать полный адрес?</h3>
+            <p class="card-text">Нет. В заявке достаточно района или ближайшего ориентира. Точный адрес передаётся только после подтверждения.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Что делать, если нужна срочная медицинская помощь?</h3>
+            <p class="card-text">Этот проект не заменяет врача и экстренные службы. Если есть риск здоровью мамы или ребёнка, нужно обращаться за медицинской помощью.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Можно помочь, если у меня мало времени?</h3>
+            <p class="card-text">Да. Самые полезные дела часто короткие: забрать аптеку, купить продукты, вынести мусор или передать готовую еду.</p>
+          </article>
+          <article class="faq-item">
+            <h3>Куда попадает заявка?</h3>
+            <p class="card-text">Координатор получает просьбу, уточняет детали и публикует только безопасную часть заявки: район, тип помощи и удобное время.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section" id="form">
+      <div class="container form-layout">
+        <div class="intro-panel">
+          <div class="kicker">Заявка</div>
+          <h2>Расскажите, что нужно</h2>
+          <p>После заполнения форма откроет черновик письма координатору. Данные никуда не отправляются автоматически, пока вы сами не отправите письмо.</p>
+          <p><strong>Важно:</strong> в описании не нужно писать полный адрес. Достаточно района, удобного времени и контакта для связи.</p>
+        </div>
+        <div class="form-panel">
+          <form id="helpForm">
+            <div class="field-grid">
+              <label>
+                Я хочу
+                <select id="role" required>
+                  <option value="получить помощь">получить помощь</option>
+                  <option value="помочь маме">помочь маме</option>
+                  <option value="стать координатором">стать координатором</option>
+                </select>
+              </label>
+              <label>
+                Имя
+                <input id="name" type="text" placeholder="Например, Анна" required />
+              </label>
+            </div>
+            <div class="field-grid">
+              <label>
+                Район / город
+                <input id="district" type="text" placeholder="Например, Северный район" required />
+              </label>
+              <label>
+                Тип помощи
+                <select id="kind" required>
+                  <option value="еда">еда</option>
+                  <option value="уборка">уборка</option>
+                  <option value="стирка">стирка</option>
+                  <option value="покупки / аптека">покупки / аптека</option>
+                  <option value="другое">другое</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Что важно знать
+              <textarea id="message" placeholder="Коротко опишите задачу, удобное время и ограничения. Полный адрес здесь писать не нужно." required></textarea>
+            </label>
+            <label>
+              Контакт для связи
+              <input id="contact" type="text" placeholder="Телефон, Telegram или email" required />
+            </label>
+            <p class="form-hint">Контакты и точный адрес не появляются в открытых заявках. Их уточняет только координатор.</p>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">Подготовить заявку</button>
+              <a class="button button-quiet" href="mailto:hello@example.com?subject=Хочу помочь маме">Написать напрямую</a>
+            </div>
+            <p class="form-result" id="formResult" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 Мамам рядом. Помощь в быту после родов.</div>
+      <div class="credits">Первый экран использует фото с Pexels CDN. Карточки помощи собраны как текстовые форматы задач, чтобы сайт оставался понятным и лёгким.</div>
+    </div>
+  </footer>
+
+  <script>
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const requestCards = document.querySelectorAll('[data-kind]');
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter;
+
+        filterButtons.forEach((item) => {
+          const isActive = item === button;
+          item.classList.toggle('is-active', isActive);
+          item.setAttribute('aria-pressed', String(isActive));
+        });
+        requestCards.forEach((card) => {
+          card.hidden = filter !== 'all' && card.dataset.kind !== filter;
+        });
+      });
+    });
+
+    const form = document.getElementById('helpForm');
+    const result = document.getElementById('formResult');
+    const roleSelect = document.getElementById('role');
+    const districtInput = document.getElementById('district');
+    const kindSelect = document.getElementById('kind');
+    const messageInput = document.getElementById('message');
+    const roleLinks = document.querySelectorAll('[data-role-link]');
+    const requestActions = document.querySelectorAll('[data-request-title]');
+
+    roleLinks.forEach((link) => {
+      link.addEventListener('click', () => {
+        roleSelect.value = link.dataset.roleLink;
+      });
+    });
+
+    requestActions.forEach((button) => {
+      button.addEventListener('click', () => {
+        roleSelect.value = 'помочь маме';
+        districtInput.value = button.dataset.requestDistrict;
+        kindSelect.value = button.dataset.requestKind;
+        messageInput.value = `Хочу откликнуться на заявку: ${button.dataset.requestTitle}.`;
+        result.textContent = 'Заявка выбрана. Оставьте имя и контакт, чтобы координатор связался с вами.';
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('name').focus({ preventScroll: true });
+      });
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const data = {
+        role: document.getElementById('role').value,
+        name: document.getElementById('name').value.trim(),
+        district: document.getElementById('district').value.trim(),
+        kind: document.getElementById('kind').value,
+        message: document.getElementById('message').value.trim(),
+        contact: document.getElementById('contact').value.trim()
+      };
+
+      const subject = `Заявка: ${data.role}`;
+      const body = [
+        `Я хочу: ${data.role}`,
+        `Имя: ${data.name}`,
+        `Район / город: ${data.district}`,
+        `Тип помощи: ${data.kind}`,
+        '',
+        'Что важно знать:',
+        data.message,
+        '',
+        `Контакт: ${data.contact}`
+      ].join('\n');
+
+      result.textContent = 'Черновик письма подготовлен. Проверьте его перед отправкой.';
+      window.location.href = `mailto:hello@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  </script>
+</body>
+</html>
