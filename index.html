@@ -8,7 +8,8 @@
   <meta property="og:title" content="Мамам рядом — помощь после родов" />
   <meta property="og:description" content="Найдите, кому рядом нужна помощь с едой, уборкой, стиркой, покупками и заботой в первые недели после родов." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://images.pexels.com/photos/7919582/pexels-photo-7919582.jpeg?auto=compress&cs=tinysrgb&w=1600" />
+  <meta property="og:image" content="assets/hero-soft-home.jpg" />
+  <link rel="preload" as="image" href="assets/hero-soft-home.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -149,7 +150,7 @@
       background:
         linear-gradient(90deg, rgba(18, 29, 26, 0.86), rgba(18, 29, 26, 0.6) 48%, rgba(18, 29, 26, 0.18)),
         linear-gradient(0deg, rgba(15, 31, 27, 0.44), rgba(15, 31, 27, 0.04) 48%),
-        url("https://images.pexels.com/photos/7919582/pexels-photo-7919582.jpeg?auto=compress&cs=tinysrgb&w=1800") center / cover;
+        url("assets/hero-soft-home.jpg") center / cover;
     }
 
     .hero::after {
@@ -517,6 +518,55 @@
       background: var(--green);
     }
 
+    .photo-story {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr 0.85fr;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .photo-card {
+      min-height: 280px;
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      object-fit: cover;
+    }
+
+    .photo-card:first-child {
+      min-height: 360px;
+      grid-row: span 2;
+    }
+
+    .photo-card:first-child img {
+      min-height: 360px;
+    }
+
+    .photo-caption {
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: var(--radius);
+      color: white;
+      background: rgba(20, 29, 26, 0.58);
+      backdrop-filter: blur(12px);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
     .steps,
     .trust-grid,
     .after-grid,
@@ -630,14 +680,27 @@
     }
 
     .help-card {
-      min-height: 250px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 22px;
       overflow: hidden;
       background:
         linear-gradient(180deg, #ffffff 0, #fffaf4 100%);
+    }
+
+    .help-card-photo {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    .help-card-body {
+      min-height: 260px;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px;
     }
 
     .help-card-mark {
@@ -1055,6 +1118,14 @@
         grid-template-columns: 1fr;
       }
 
+      .photo-story {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-card:first-child {
+        grid-row: auto;
+      }
+
       .help-grid {
         grid-template-columns: repeat(2, 1fr);
       }
@@ -1250,6 +1321,20 @@
             <a class="button button-primary-dark" href="#requests">Посмотреть заявки</a>
           </article>
         </div>
+        <div class="photo-story" aria-label="Атмосфера проекта">
+          <figure class="photo-card">
+            <img src="assets/entry-support.jpg" alt="Светлая прихожая с сумкой, мягким текстилем и спокойным домашним светом" loading="lazy" />
+            <figcaption class="photo-caption">Помощь можно передать спокойно и без лишнего вторжения</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="assets/soft-support-photo.jpg" alt="Домашний стол с чаем, блокнотом, пледом и детскими вещами" loading="lazy" />
+            <figcaption class="photo-caption">Одно дело, понятное время, бережные границы</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="assets/hero-soft-home.jpg" alt="Мягкий домашний свет, плед, чашка и спокойное место рядом с окном" loading="lazy" />
+            <figcaption class="photo-caption">Не подвиг, а нормальная поддержка рядом</figcaption>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -1348,7 +1433,7 @@
         </div>
         <div class="support-visual">
           <div class="support-photo">
-            <img src="assets/soft-support-photo.png" alt="Спокойный домашний стол с пледом, чаем, блокнотом и детскими вещами" loading="lazy" />
+            <img src="assets/soft-support-photo.jpg" alt="Спокойный домашний стол с пледом, чаем, блокнотом и детскими вещами" loading="lazy" />
           </div>
           <div class="support-note">
             <span class="tag">не про подвиг</span>
@@ -1363,40 +1448,52 @@
         </div>
         <div class="help-grid">
           <article class="help-card">
-            <div>
-              <div class="help-card-mark">01</div>
-              <span class="tag">еда</span>
-              <h3>Приготовить еду</h3>
-              <p class="card-text">Суп, простые блюда, заготовки на пару дней, аккуратная передача у двери.</p>
+            <img class="help-card-photo" src="assets/help-food.jpg" alt="Тёплый домашний суп на деревянном столе в мягком дневном свете" loading="lazy" />
+            <div class="help-card-body">
+              <div>
+                <div class="help-card-mark">01</div>
+                <span class="tag">еда</span>
+                <h3>Приготовить еду</h3>
+                <p class="card-text">Суп, простые блюда, заготовки на пару дней, аккуратная передача у двери.</p>
+              </div>
+              <div class="help-card-note">подходит на 1-2 часа</div>
             </div>
-            <div class="help-card-note">подходит на 1-2 часа</div>
           </article>
           <article class="help-card">
-            <div>
-              <div class="help-card-mark">02</div>
-              <span class="tag">уборка</span>
-              <h3>Навести порядок</h3>
-              <p class="card-text">Кухня, пол, ванная, мусор, поверхности вокруг кроватки, без тяжёлых вещей.</p>
+            <img class="help-card-photo" src="assets/help-cleaning.jpg" alt="Чистая кухонная поверхность с мягкой тканью, щёткой и спокойным светом" loading="lazy" />
+            <div class="help-card-body">
+              <div>
+                <div class="help-card-mark">02</div>
+                <span class="tag">уборка</span>
+                <h3>Навести порядок</h3>
+                <p class="card-text">Кухня, пол, ванная, мусор, поверхности вокруг кроватки, без тяжёлых вещей.</p>
+              </div>
+              <div class="help-card-note">без генеральной уборки</div>
             </div>
-            <div class="help-card-note">без генеральной уборки</div>
           </article>
           <article class="help-card">
-            <div>
-              <div class="help-card-mark">03</div>
-              <span class="tag">стирка</span>
-              <h3>Разобрать бельё</h3>
-              <p class="card-text">Развесить, сложить детские вещи, забрать заказ из химчистки или прачечной.</p>
+            <img class="help-card-photo" src="assets/help-laundry.jpg" alt="Стопка чистых детских вещей и полотенец на деревянном столе" loading="lazy" />
+            <div class="help-card-body">
+              <div>
+                <div class="help-card-mark">03</div>
+                <span class="tag">стирка</span>
+                <h3>Разобрать бельё</h3>
+                <p class="card-text">Развесить, сложить детские вещи, забрать заказ из химчистки или прачечной.</p>
+              </div>
+              <div class="help-card-note">понятная короткая задача</div>
             </div>
-            <div class="help-card-note">понятная короткая задача</div>
           </article>
           <article class="help-card">
-            <div>
-              <div class="help-card-mark">04</div>
-              <span class="tag">покупки</span>
-              <h3>Сходить в магазин</h3>
-              <p class="card-text">Продукты, аптека, подгузники, вода, доставка до двери или консьержа.</p>
+            <img class="help-card-photo" src="assets/help-shopping.jpg" alt="Светлая тканевая сумка с покупками на деревянной скамье у двери" loading="lazy" />
+            <div class="help-card-body">
+              <div>
+                <div class="help-card-mark">04</div>
+                <span class="tag">покупки</span>
+                <h3>Сходить в магазин</h3>
+                <p class="card-text">Продукты, аптека, подгузники, вода, доставка до двери или консьержа.</p>
+              </div>
+              <div class="help-card-note">можно сделать по пути</div>
             </div>
-            <div class="help-card-note">можно сделать по пути</div>
           </article>
         </div>
       </div>
@@ -1606,7 +1703,7 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>© 2026 Мамам рядом. Помощь в быту после родов.</div>
-      <div class="credits">Первый экран использует фото с Pexels CDN. Дополнительный мягкий визуал хранится в папке assets.</div>
+      <div class="credits">Фотографии хранятся локально в папке assets. Визуалы сделаны спокойными, без лиц и яркой постановки.</div>
     </div>
   </footer>
 
