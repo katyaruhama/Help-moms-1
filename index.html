@@ -213,6 +213,23 @@
       text-wrap: pretty;
     }
 
+    .soft-3d-word {
+      display: inline-block;
+      margin: 0 0 22px;
+      color: #fff4df;
+      font-family: var(--font-display);
+      font-size: clamp(34px, 3rem, 54px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0;
+      text-shadow:
+        0 1px 0 #e5cfaa,
+        0 2px 0 #d7bd94,
+        0 3px 0 #caa87f,
+        0 10px 24px rgba(0, 0, 0, 0.28);
+      transform: perspective(520px) rotateX(7deg);
+    }
+
     .actions,
     .form-actions {
       display: flex;
@@ -364,9 +381,24 @@
     }
 
     .section-dark {
+      position: relative;
+      overflow: hidden;
       color: white;
       background:
         linear-gradient(180deg, #17251f 0, #22332b 100%);
+    }
+
+    .section-dark .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .vanta-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.42;
+      pointer-events: none;
     }
 
     .section-head {
@@ -548,6 +580,53 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 16px;
+    }
+
+    .support-visual {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+
+    .support-photo {
+      min-height: 320px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .support-photo img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .support-note {
+      padding: 4px 0;
+    }
+
+    .support-note h3 {
+      max-width: 420px;
+      font-size: 28px;
+    }
+
+    .support-note p {
+      max-width: 430px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .support-note-list {
+      display: grid;
+      gap: 8px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+      color: #3e454d;
+      font-weight: 750;
     }
 
     .help-card {
@@ -980,6 +1059,10 @@
         grid-template-columns: repeat(2, 1fr);
       }
 
+      .support-visual {
+        grid-template-columns: 1fr;
+      }
+
       .request-aside {
         position: static;
       }
@@ -1020,11 +1103,19 @@
         font-size: 17px;
       }
 
+      .soft-3d-word {
+        font-size: 34px;
+      }
+
       .hero-strip-inner,
       .field-grid,
       .help-grid,
       .request-facts {
         grid-template-columns: 1fr;
+      }
+
+      .support-photo {
+        min-height: auto;
       }
 
       .metric {
@@ -1098,6 +1189,7 @@
         <div class="hero-content">
           <div class="eyebrow">Первые недели после родов становятся легче, когда рядом есть люди</div>
           <h1>Мамам рядом</h1>
+          <div class="soft-3d-word" aria-hidden="true">рядом</div>
           <p class="lead">Сервис соединяет мам после родов с людьми рядом, которые могут помочь с едой, уборкой, стиркой, аптекой, покупками и короткой передышкой.</p>
           <div class="actions">
             <a class="button button-primary" href="#form" data-role-link="получить помощь">Я мама, мне нужна помощь</a>
@@ -1254,6 +1346,21 @@
           </div>
           <p class="section-copy">Суп, чистая кухня, разобранная стирка или пакет продуктов иногда меняют весь день семьи.</p>
         </div>
+        <div class="support-visual">
+          <div class="support-photo">
+            <img src="assets/soft-support-photo.png" alt="Спокойный домашний стол с пледом, чаем, блокнотом и детскими вещами" loading="lazy" />
+          </div>
+          <div class="support-note">
+            <span class="tag">не про подвиг</span>
+            <h3>Помощь выглядит просто: одно понятное дело и спокойная договорённость</h3>
+            <p>Фото на сайте должны поддерживать это ощущение: мягкий свет, порядок, забота и отсутствие давления.</p>
+            <ul class="support-note-list">
+              <li>без яркой постановки</li>
+              <li>без лиц и личных деталей</li>
+              <li>без ощущения рекламы</li>
+            </ul>
+          </div>
+        </div>
         <div class="help-grid">
           <article class="help-card">
             <div>
@@ -1377,6 +1484,7 @@
     </section>
 
     <section class="section section-dark" aria-labelledby="trust-title">
+      <div class="vanta-bg" id="trustVanta" aria-hidden="true"></div>
       <div class="container">
         <div class="section-head">
           <div>
@@ -1498,11 +1606,47 @@
   <footer class="footer">
     <div class="container footer-inner">
       <div>© 2026 Мамам рядом. Помощь в быту после родов.</div>
-      <div class="credits">Первый экран использует фото с Pexels CDN. Карточки помощи собраны как текстовые форматы задач, чтобы сайт оставался понятным и лёгким.</div>
+      <div class="credits">Первый экран использует фото с Pexels CDN. Дополнительный мягкий визуал хранится в папке assets.</div>
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
   <script>
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const vantaTarget = document.getElementById('trustVanta');
+    let trustVantaEffect = null;
+
+    if (!reducedMotion.matches && vantaTarget && window.THREE && window.VANTA && window.VANTA.NET) {
+      try {
+        trustVantaEffect = window.VANTA.NET({
+          el: vantaTarget,
+          THREE: window.THREE,
+          mouseControls: false,
+          touchControls: false,
+          gyroControls: false,
+          minHeight: 260,
+          minWidth: 260,
+          scale: 1,
+          scaleMobile: 1,
+          color: 0xdfeee5,
+          backgroundColor: 0x17251f,
+          points: 7,
+          maxDistance: 18,
+          spacing: 18,
+          showDots: false
+        });
+      } catch (error) {
+        trustVantaEffect = null;
+      }
+    }
+
+    window.addEventListener('beforeunload', () => {
+      if (trustVantaEffect) {
+        trustVantaEffect.destroy();
+      }
+    });
+
     const filterButtons = document.querySelectorAll('[data-filter]');
     const requestCards = document.querySelectorAll('[data-kind]');
 
