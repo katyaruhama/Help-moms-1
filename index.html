@@ -977,6 +977,109 @@
       font-size: 19px;
     }
 
+    .analysis-section {
+      padding: 82px 0;
+      background:
+        linear-gradient(180deg, #f8fbf8 0, #eef5f1 100%);
+    }
+
+    .analysis-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 22px;
+      align-items: start;
+    }
+
+    .analysis-panel,
+    .analysis-result {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .analysis-panel {
+      padding: 28px;
+    }
+
+    .analysis-result {
+      min-height: 100%;
+      overflow: hidden;
+    }
+
+    .analysis-result-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--line);
+      background: #fffaf5;
+    }
+
+    .analysis-result-head h3 {
+      margin: 0;
+    }
+
+    .analysis-badge {
+      align-self: start;
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--green-strong);
+      background: var(--mint);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .analysis-output {
+      min-height: 320px;
+      max-height: 620px;
+      overflow: auto;
+      padding: 24px;
+      white-space: pre-wrap;
+      color: #313a35;
+      font-size: 15px;
+      line-height: 1.62;
+    }
+
+    .analysis-output.is-muted {
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .analysis-meta {
+      display: grid;
+      gap: 8px;
+      padding: 16px 24px 22px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .analysis-sources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .analysis-source {
+      max-width: 100%;
+      overflow: hidden;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #f3f6f4;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .button[disabled] {
+      cursor: wait;
+      opacity: 0.7;
+      transform: none;
+    }
+
     .form-section {
       padding: 78px 0 92px;
       background:
@@ -1099,6 +1202,7 @@
     @media (max-width: 980px) {
       .section-head,
       .requests-layout,
+      .analysis-layout,
       .form-layout,
       .faq-grid {
         grid-template-columns: 1fr;
@@ -1200,12 +1304,14 @@
       }
 
       .section,
+      .analysis-section,
       .form-section {
         padding: 56px 0;
       }
 
       .intro-panel,
       .form-panel,
+      .analysis-panel,
       .request-aside,
       .audience-card,
       .step,
@@ -1233,6 +1339,17 @@
         display: inline-flex;
         margin-top: 8px;
       }
+
+      .analysis-result-head {
+        display: grid;
+        padding: 20px;
+      }
+
+      .analysis-output,
+      .analysis-meta {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
     }
   </style>
 </head>
@@ -1248,6 +1365,7 @@
         <a href="#how">Как работает</a>
         <a href="#help">Чем помочь</a>
         <a href="#requests">Заявки</a>
+        <a href="#ai-analysis">AI-анализ</a>
         <a href="#faq">FAQ</a>
         <a class="nav-cta" href="#form">Оставить заявку</a>
       </nav>
@@ -1580,6 +1698,64 @@
       </div>
     </section>
 
+    <section class="analysis-section" id="ai-analysis">
+      <div class="container analysis-layout">
+        <div class="analysis-panel">
+          <div class="kicker">API + LLM</div>
+          <h2>Анализ сайта через Apify и модель</h2>
+          <p class="section-copy">Введите страницу или раздел сайта. Сервис получит текст через Apify Website Content Crawler, передаст его в LLM и покажет вывод здесь же.</p>
+          <form id="analysisForm">
+            <label>
+              URL для анализа
+              <input id="analysisUrl" type="url" placeholder="https://example.com/blog/" required />
+            </label>
+            <label>
+              Что нужно понять
+              <textarea id="analysisQuestion" placeholder="Например: выдели главные темы, риски, полезные идеи и короткий план действий.">Сделай краткий анализ страницы: главные тезисы, практические выводы, риски и 3 следующих шага.</textarea>
+            </label>
+            <div class="field-grid">
+              <label>
+                LLM-провайдер
+                <select id="analysisProvider">
+                  <option value="openrouter">OpenRouter</option>
+                  <option value="google">Google AI Studio</option>
+                </select>
+              </label>
+              <label>
+                Страниц Apify
+                <select id="analysisPages">
+                  <option value="1">1 страница</option>
+                  <option value="2">2 страницы</option>
+                  <option value="3">3 страницы</option>
+                  <option value="5">5 страниц</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Модель
+              <input id="analysisModel" type="text" placeholder="Например, openai/gpt-4o-mini или gemini-3.5-flash" />
+            </label>
+            <p class="form-hint">Ключи API хранятся в переменных окружения Vercel. В браузер они не отправляются.</p>
+            <div class="form-actions">
+              <button class="button button-primary-dark" id="analysisSubmit" type="submit">Запустить анализ</button>
+            </div>
+            <p class="form-result" id="analysisStatus" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="analysis-result" aria-live="polite">
+          <div class="analysis-result-head">
+            <h3>Результат анализа</h3>
+            <span class="analysis-badge" id="analysisBadge">ожидает запроса</span>
+          </div>
+          <div class="analysis-output is-muted" id="analysisOutput">Здесь появится ответ модели после запроса к Apify и LLM.</div>
+          <div class="analysis-meta" id="analysisMeta" hidden>
+            <div id="analysisProviderMeta"></div>
+            <div class="analysis-sources" id="analysisSources"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-dark" aria-labelledby="trust-title">
       <div class="vanta-bg" id="trustVanta" aria-hidden="true"></div>
       <div class="container">
@@ -1760,6 +1936,81 @@
           card.hidden = filter !== 'all' && card.dataset.kind !== filter;
         });
       });
+    });
+
+    const analysisForm = document.getElementById('analysisForm');
+    const analysisSubmit = document.getElementById('analysisSubmit');
+    const analysisStatus = document.getElementById('analysisStatus');
+    const analysisOutput = document.getElementById('analysisOutput');
+    const analysisBadge = document.getElementById('analysisBadge');
+    const analysisMeta = document.getElementById('analysisMeta');
+    const analysisProviderMeta = document.getElementById('analysisProviderMeta');
+    const analysisSources = document.getElementById('analysisSources');
+    const analysisProvider = document.getElementById('analysisProvider');
+    const analysisModel = document.getElementById('analysisModel');
+
+    const modelPlaceholders = {
+      openrouter: 'Например, openai/gpt-4o-mini',
+      google: 'Например, gemini-3.5-flash'
+    };
+
+    analysisProvider.addEventListener('change', () => {
+      analysisModel.placeholder = modelPlaceholders[analysisProvider.value];
+    });
+
+    analysisForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const payload = {
+        url: document.getElementById('analysisUrl').value.trim(),
+        question: document.getElementById('analysisQuestion').value.trim(),
+        provider: analysisProvider.value,
+        model: analysisModel.value.trim(),
+        maxPages: Number(document.getElementById('analysisPages').value)
+      };
+
+      analysisSubmit.disabled = true;
+      analysisStatus.textContent = 'Запускаю Apify crawler, затем передам текст в модель.';
+      analysisBadge.textContent = 'в работе';
+      analysisOutput.classList.add('is-muted');
+      analysisOutput.textContent = 'Запрос может занять немного времени: Apify сначала должен получить содержимое страницы.';
+      analysisMeta.hidden = true;
+      analysisSources.innerHTML = '';
+
+      try {
+        const response = await fetch('/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Не удалось выполнить анализ.');
+        }
+
+        analysisOutput.classList.remove('is-muted');
+        analysisOutput.textContent = data.analysis;
+        analysisBadge.textContent = 'готово';
+        analysisStatus.textContent = 'Готово: данные получены и проанализированы.';
+        analysisProviderMeta.textContent = `Провайдер: ${data.provider}. Модель: ${data.model}. Страниц: ${data.itemCount}.`;
+
+        data.sources.forEach((source) => {
+          const item = document.createElement('span');
+          item.className = 'analysis-source';
+          item.textContent = source.title ? `${source.title} - ${source.url}` : source.url;
+          analysisSources.appendChild(item);
+        });
+
+        analysisMeta.hidden = false;
+      } catch (error) {
+        analysisOutput.classList.add('is-muted');
+        analysisOutput.textContent = error.message;
+        analysisBadge.textContent = 'ошибка';
+        analysisStatus.textContent = 'Проверьте URL, переменные окружения и доступность выбранной модели.';
+      } finally {
+        analysisSubmit.disabled = false;
+      }
     });
 
     const form = document.getElementById('helpForm');
