@@ -425,6 +425,16 @@
       color: var(--yellow);
     }
 
+    #how .kicker,
+    .section-short-help .kicker,
+    .section-helper-flow .kicker,
+    #help .kicker,
+    #donate .kicker,
+    #faq .kicker {
+      font-size: 15px;
+      letter-spacing: 0.1em;
+    }
+
     h2 {
       max-width: 740px;
       margin-bottom: 0;
@@ -522,13 +532,13 @@
 
     .photo-story {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr 0.85fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
       margin-top: 22px;
     }
 
     .photo-card {
-      min-height: 280px;
+      aspect-ratio: 4 / 3;
       position: relative;
       overflow: hidden;
       margin: 0;
@@ -541,17 +551,7 @@
     .photo-card img {
       width: 100%;
       height: 100%;
-      min-height: 280px;
       object-fit: cover;
-    }
-
-    .photo-card:first-child {
-      min-height: 360px;
-      grid-row: span 2;
-    }
-
-    .photo-card:first-child img {
-      min-height: 360px;
     }
 
     .photo-caption {
@@ -938,6 +938,41 @@
     .after-card {
       position: relative;
       overflow: hidden;
+      background:
+        linear-gradient(145deg, #ffffff 0, #fffaf5 100%);
+      box-shadow:
+        0 18px 34px rgba(42, 51, 47, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      transform: perspective(900px) translateZ(0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .after-card:hover {
+      border-color: rgba(212, 93, 76, 0.28);
+      box-shadow:
+        0 28px 58px rgba(42, 51, 47, 0.17),
+        0 10px 18px rgba(212, 93, 76, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      transform: perspective(900px) translateY(-7px) rotateX(2deg);
+    }
+
+    .section-helper-flow .step {
+      background:
+        linear-gradient(145deg, #ffffff 0, #f7fbf8 100%);
+      box-shadow:
+        0 18px 34px rgba(42, 51, 47, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      transform: perspective(900px) translateZ(0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .section-helper-flow .step:hover {
+      border-color: rgba(31, 107, 79, 0.28);
+      box-shadow:
+        0 28px 58px rgba(42, 51, 47, 0.17),
+        0 10px 18px rgba(31, 107, 79, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      transform: perspective(900px) translateY(-7px) rotateX(2deg);
     }
 
     .after-card::after {
@@ -977,6 +1012,83 @@
 
     .faq-item h3 {
       font-size: 19px;
+    }
+
+    .donate-section {
+      padding: 82px 0;
+      background:
+        linear-gradient(180deg, #fff8ef 0, #f8fbf8 100%);
+    }
+
+    .donate-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .donate-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, #ffffff 0, #fffaf5 100%);
+      box-shadow:
+        0 18px 34px rgba(42, 51, 47, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      transform: perspective(900px) translateZ(0);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .donate-card:hover {
+      border-color: rgba(31, 107, 79, 0.28);
+      box-shadow:
+        0 28px 58px rgba(42, 51, 47, 0.17),
+        0 10px 18px rgba(31, 107, 79, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+      transform: perspective(900px) translateY(-7px) rotateX(2deg);
+    }
+
+    .donate-card::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 5px;
+      background: linear-gradient(90deg, var(--green), var(--coral), var(--yellow));
+    }
+
+    .donate-card .tag {
+      align-self: flex-start;
+    }
+
+    .donate-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    .donate-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 20px;
+      border: 1px solid rgba(31, 107, 79, 0.16);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .donate-actions p {
+      max-width: 660px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
     }
 
     .analysis-section {
@@ -1257,16 +1369,13 @@
       .trust-grid,
       .after-grid,
       .quick-help-grid,
+      .donate-grid,
       .audience-grid {
         grid-template-columns: 1fr;
       }
 
       .photo-story {
         grid-template-columns: 1fr;
-      }
-
-      .photo-card:first-child {
-        grid-row: auto;
       }
 
       .help-grid {
@@ -1405,6 +1514,7 @@
         <a href="#help">Чем помочь</a>
         <a href="#requests">Заявки</a>
         <a href="#ai-analysis">AI-анализ</a>
+        <a href="#donate">Поддержать</a>
         <a href="#faq">FAQ</a>
         <a class="nav-cta" href="#form">Оставить заявку</a>
       </nav>
@@ -1417,7 +1527,6 @@
         <div class="hero-content">
           <div class="eyebrow">Первые недели после родов становятся легче, когда рядом есть люди</div>
           <h1>Мамам рядом</h1>
-          <div class="soft-3d-word" aria-hidden="true">рядом</div>
           <p class="lead">Сервис соединяет мам после родов с людьми рядом, которые могут помочь с едой, уборкой, стиркой, аптекой, покупками и короткой передышкой.</p>
           <div class="actions">
             <a class="button button-primary" href="#form" data-role-link="получить помощь">Я мама, мне нужна помощь</a>
@@ -1521,7 +1630,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section-short-help">
       <div class="container">
         <div class="section-head">
           <div>
@@ -1550,7 +1659,7 @@
       </div>
     </section>
 
-    <section class="section section-alt">
+    <section class="section section-alt section-helper-flow">
       <div class="container">
         <div class="section-head">
           <div>
@@ -1858,6 +1967,45 @@
             <h3>Куда попадает заявка?</h3>
             <p class="card-text">Координатор получает просьбу, уточняет детали и публикует только безопасную часть заявки: район, тип помощи и удобное время.</p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="donate-section" id="donate">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="kicker">Поддержать проект</div>
+            <h2>Помощь нужна не только мамам, но и самому сервису</h2>
+          </div>
+          <p class="section-copy">Даже небольшая поддержка помогает держать проект живым: оплачивать инструменты, печатать памятки и быстрее связывать семьи с помощниками.</p>
+        </div>
+        <div class="donate-grid">
+          <article class="donate-card">
+            <div>
+              <span class="tag">деньги</span>
+              <h3>Закрыть рабочие расходы</h3>
+              <p>Домен, сервисы, рассылки, печать листовок и базовые инструменты координатора.</p>
+            </div>
+          </article>
+          <article class="donate-card">
+            <div>
+              <span class="tag">вещи</span>
+              <h3>Передать полезное</h3>
+              <p>Продукты, бытовая химия, подгузники, аптечные мелочи или готовая еда для конкретной семьи.</p>
+            </div>
+          </article>
+          <article class="donate-card">
+            <div>
+              <span class="tag">время</span>
+              <h3>Помочь руками</h3>
+              <p>Можно стать помощником, координатором, дизайнером, переводчиком или просто взять одну маленькую задачу.</p>
+            </div>
+          </article>
+        </div>
+        <div class="donate-actions">
+          <p>Платёжную ссылку можно подключить позже. Пока самый бережный способ — написать координатору и выбрать удобный формат поддержки.</p>
+          <a class="button button-primary-dark" href="mailto:hello@example.com?subject=Хочу поддержать проект Мамам рядом">Написать о поддержке</a>
         </div>
       </div>
     </section>
