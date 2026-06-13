@@ -8,7 +8,9 @@
   <meta property="og:title" content="Мамам рядом — помощь после родов" />
   <meta property="og:description" content="Найдите, кому рядом нужна помощь с едой, уборкой, стиркой, покупками и заботой в первые недели после родов." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://help-moms-1.vercel.app/" />
   <meta property="og:image" content="assets/hero-soft-home.jpg" />
+  <link rel="canonical" href="https://help-moms-1.vercel.app/" />
   <link rel="preload" as="image" href="assets/hero-soft-home.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1074,6 +1076,43 @@
       white-space: nowrap;
     }
 
+    .demo-switch {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid rgba(31, 107, 79, 0.18);
+      border-radius: var(--radius);
+      background: #f7fbf8;
+    }
+
+    .demo-switch input {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+      margin-top: 3px;
+      accent-color: var(--green);
+    }
+
+    .demo-switch strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--green-strong);
+      font-size: 14px;
+    }
+
+    .demo-switch span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .analysis-controls-disabled {
+      opacity: 0.56;
+    }
+
     .button[disabled] {
       cursor: wait;
       opacity: 0.7;
@@ -1713,7 +1752,14 @@
               Что нужно понять
               <textarea id="analysisQuestion" placeholder="Например: выдели главные темы, риски, полезные идеи и короткий план действий.">Сделай краткий анализ страницы: главные тезисы, практические выводы, риски и 3 следующих шага.</textarea>
             </label>
-            <div class="field-grid">
+            <label class="demo-switch">
+              <input id="analysisDemo" type="checkbox" checked />
+              <span>
+                <strong>Демо-режим</strong>
+                Показывает пример результата без платных запросов. Для настоящего анализа снимите галочку.
+              </span>
+            </label>
+            <div class="field-grid" id="analysisRealControls">
               <label>
                 LLM-провайдер
                 <select id="analysisProvider">
@@ -1735,7 +1781,7 @@
               Модель
               <input id="analysisModel" type="text" placeholder="Например, openai/gpt-4o-mini или gemini-3.5-flash" />
             </label>
-            <p class="form-hint">Ключи API хранятся в переменных окружения Vercel. В браузер они не отправляются.</p>
+            <p class="form-hint">В демо ключи не нужны. Реальный режим использует ключи из переменных окружения Vercel.</p>
             <div class="form-actions">
               <button class="button button-primary-dark" id="analysisSubmit" type="submit">Запустить анализ</button>
             </div>
@@ -1948,15 +1994,30 @@
     const analysisSources = document.getElementById('analysisSources');
     const analysisProvider = document.getElementById('analysisProvider');
     const analysisModel = document.getElementById('analysisModel');
+    const analysisDemo = document.getElementById('analysisDemo');
+    const analysisRealControls = document.getElementById('analysisRealControls');
+    const analysisPages = document.getElementById('analysisPages');
 
     const modelPlaceholders = {
       openrouter: 'Например, openai/gpt-4o-mini',
       google: 'Например, gemini-3.5-flash'
     };
 
+    const syncDemoControls = () => {
+      const isDemo = analysisDemo.checked;
+      analysisRealControls.classList.toggle('analysis-controls-disabled', isDemo);
+      analysisProvider.disabled = isDemo;
+      analysisPages.disabled = isDemo;
+      analysisModel.disabled = isDemo;
+      analysisBadge.textContent = isDemo ? 'демо готово' : 'ожидает запроса';
+    };
+
     analysisProvider.addEventListener('change', () => {
       analysisModel.placeholder = modelPlaceholders[analysisProvider.value];
     });
+
+    analysisDemo.addEventListener('change', syncDemoControls);
+    syncDemoControls();
 
     analysisForm.addEventListener('submit', async (event) => {
       event.preventDefault();
@@ -1966,14 +2027,19 @@
         question: document.getElementById('analysisQuestion').value.trim(),
         provider: analysisProvider.value,
         model: analysisModel.value.trim(),
-        maxPages: Number(document.getElementById('analysisPages').value)
+        maxPages: Number(analysisPages.value),
+        demoMode: analysisDemo.checked
       };
 
       analysisSubmit.disabled = true;
-      analysisStatus.textContent = 'Запускаю Apify crawler, затем передам текст в модель.';
+      analysisStatus.textContent = payload.demoMode
+        ? 'Готовлю демо-анализ без внешних API.'
+        : 'Запускаю Apify crawler, затем передам текст в модель.';
       analysisBadge.textContent = 'в работе';
       analysisOutput.classList.add('is-muted');
-      analysisOutput.textContent = 'Запрос может занять немного времени: Apify сначала должен получить содержимое страницы.';
+      analysisOutput.textContent = payload.demoMode
+        ? 'Демо-режим показывает пример того, как будет выглядеть результат.'
+        : 'Запрос может занять немного времени: Apify сначала должен получить содержимое страницы.';
       analysisMeta.hidden = true;
       analysisSources.innerHTML = '';
 
@@ -1992,8 +2058,12 @@
         analysisOutput.classList.remove('is-muted');
         analysisOutput.textContent = data.analysis;
         analysisBadge.textContent = 'готово';
-        analysisStatus.textContent = 'Готово: данные получены и проанализированы.';
-        analysisProviderMeta.textContent = `Провайдер: ${data.provider}. Модель: ${data.model}. Страниц: ${data.itemCount}.`;
+        analysisStatus.textContent = data.demoMode
+          ? 'Готово: показан демонстрационный результат.'
+          : 'Готово: данные получены и проанализированы.';
+        analysisProviderMeta.textContent = data.demoMode
+          ? `Режим: демо. Модель: ${data.model}.`
+          : `Провайдер: ${data.provider}. Модель: ${data.model}. Страниц: ${data.itemCount}.`;
 
         data.sources.forEach((source) => {
           const item = document.createElement('span');
