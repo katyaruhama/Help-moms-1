@@ -425,6 +425,11 @@
       color: var(--yellow);
     }
 
+    #requests .kicker {
+      color: var(--yellow);
+    }
+
+    #for-whom .kicker,
     #how .kicker,
     .section-short-help .kicker,
     .section-helper-flow .kicker,
@@ -761,6 +766,9 @@
     .request-aside {
       position: sticky;
       top: 92px;
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
       padding: 28px;
       border-radius: var(--radius);
       background:
@@ -782,7 +790,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 24px;
+      margin-top: auto;
+      padding-top: 24px;
     }
 
     .filter-button {
@@ -812,6 +821,9 @@
     }
 
     .request-card {
+      min-height: 330px;
+      display: flex;
+      flex-direction: column;
       padding: 22px;
       border-left: 6px solid var(--mint);
     }
@@ -886,7 +898,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 16px;
+      margin-top: auto;
+      padding-top: 16px;
     }
 
     .request-tags {
@@ -1388,6 +1401,11 @@
 
       .request-aside {
         position: static;
+        min-height: auto;
+      }
+
+      .request-card {
+        min-height: auto;
       }
     }
 
