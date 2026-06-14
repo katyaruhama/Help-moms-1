@@ -32,6 +32,7 @@
       --line: rgba(36, 48, 44, 0.13);
       --shadow: 0 22px 54px rgba(42, 51, 47, 0.13);
       --shadow-soft: 0 10px 26px rgba(42, 51, 47, 0.09);
+      --request-panel-height: 370px;
       --font-ui: Manrope, Inter, "Segoe UI", Arial, sans-serif;
       --font-display: Lora, Georgia, serif;
       --radius: 8px;
@@ -375,7 +376,7 @@
     }
 
     .section {
-      padding: 82px 0;
+      padding: 70px 0;
     }
 
     .section-alt {
@@ -564,6 +565,9 @@
       left: 14px;
       right: 14px;
       bottom: 14px;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
       padding: 10px 12px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: var(--radius);
@@ -766,7 +770,7 @@
     .request-aside {
       position: sticky;
       top: 92px;
-      min-height: 330px;
+      height: var(--request-panel-height);
       display: flex;
       flex-direction: column;
       padding: 28px;
@@ -821,7 +825,7 @@
     }
 
     .request-card {
-      min-height: 330px;
+      height: var(--request-panel-height);
       display: flex;
       flex-direction: column;
       padding: 22px;
@@ -919,6 +923,9 @@
 
     .request-action {
       min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 9px 13px;
       border: 1px solid rgba(31, 107, 79, 0.2);
       border-radius: 999px;
@@ -1028,7 +1035,7 @@
     }
 
     .donate-section {
-      padding: 82px 0;
+      padding: 70px 0;
       background:
         linear-gradient(180deg, #fff8ef 0, #f8fbf8 100%);
     }
@@ -1105,7 +1112,7 @@
     }
 
     .analysis-section {
-      padding: 82px 0;
+      padding: 70px 0;
       background:
         linear-gradient(180deg, #f8fbf8 0, #eef5f1 100%);
     }
@@ -1245,7 +1252,7 @@
     }
 
     .form-section {
-      padding: 78px 0 92px;
+      padding: 68px 0 78px;
       background:
         linear-gradient(180deg, var(--soft) 0, #fff8ef 100%);
     }
@@ -1401,11 +1408,11 @@
 
       .request-aside {
         position: static;
-        min-height: auto;
+        height: auto;
       }
 
       .request-card {
-        min-height: auto;
+        height: auto;
       }
     }
 
@@ -1522,19 +1529,18 @@
 <body>
   <header class="nav">
     <div class="container nav-inner">
-      <a class="brand" href="#top" aria-label="Мамам рядом">
+      <a class="brand" href="index.html" aria-label="Мамам рядом">
         <span class="brand-mark">М</span>
         <span>Мамам рядом</span>
       </a>
       <nav class="nav-links" aria-label="Главное меню">
-        <a href="#for-whom">Для кого</a>
-        <a href="#how">Как работает</a>
-        <a href="#help">Чем помочь</a>
-        <a href="#requests">Заявки</a>
-        <a href="#ai-analysis">AI-анализ</a>
-        <a href="#donate">Поддержать</a>
-        <a href="#faq">FAQ</a>
-        <a class="nav-cta" href="#form">Оставить заявку</a>
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="ai-analysis.html">AI-анализ</a>
+        <a href="donate.html">Поддержать</a>
+        <a href="faq.html">FAQ</a>
+        <a class="nav-cta" href="for-moms.html">Оставить заявку</a>
       </nav>
     </div>
   </header>
@@ -1547,8 +1553,8 @@
           <h1>Мамам рядом</h1>
           <p class="lead">Сервис соединяет мам после родов с людьми рядом, которые могут помочь с едой, уборкой, стиркой, аптекой, покупками и короткой передышкой.</p>
           <div class="actions">
-            <a class="button button-primary" href="#form" data-role-link="получить помощь">Я мама, мне нужна помощь</a>
-            <a class="button button-secondary" href="#requests">Я хочу помочь маме</a>
+            <a class="button button-primary" href="for-moms.html">Я мама, мне нужна помощь</a>
+            <a class="button button-secondary" href="requests.html">Я хочу помочь маме</a>
           </div>
           <div class="hero-note" aria-label="Пример заявки">
             <div class="hero-note-top">
@@ -1589,7 +1595,7 @@
                 <li>координатор уточнит детали перед передачей контакта</li>
               </ul>
             </div>
-            <a class="button button-primary" href="#form" data-role-link="получить помощь">Оставить просьбу</a>
+            <a class="button button-primary" href="for-moms.html">Оставить просьбу</a>
           </article>
           <article class="audience-card">
             <div>
@@ -1602,7 +1608,7 @@
                 <li>контакт передаётся только после подтверждения</li>
               </ul>
             </div>
-            <a class="button button-primary-dark" href="#requests">Посмотреть заявки</a>
+            <a class="button button-primary-dark" href="requests.html">Посмотреть заявки</a>
           </article>
         </div>
         <div class="photo-story" aria-label="Атмосфера проекта">
@@ -1815,7 +1821,7 @@
                 <span class="pill">1-2 часа</span>
                 <span class="pill">без визита в квартиру</span>
               </div>
-              <button class="request-action" type="button" data-request-title="Еда на два дня после выписки" data-request-kind="еда" data-request-district="Северный район">Откликнуться</button>
+              <a class="request-action" href="requests.html?request=food-after-discharge#respond">Откликнуться</a>
             </div>
           </article>
           <article class="request-card" data-kind="cleaning">
@@ -1836,7 +1842,7 @@
                 <span class="pill">уборка</span>
                 <span class="pill">после 18:00</span>
               </div>
-              <button class="request-action" type="button" data-request-title="Лёгкая уборка кухни и пола" data-request-kind="уборка" data-request-district="центр города">Откликнуться</button>
+              <a class="request-action" href="requests.html?request=light-kitchen-cleaning#respond">Откликнуться</a>
             </div>
           </article>
           <article class="request-card" data-kind="shopping">
@@ -1857,7 +1863,7 @@
                 <span class="pill">аптека</span>
                 <span class="pill">30 минут</span>
               </div>
-              <button class="request-action" type="button" data-request-title="Забрать заказ из аптеки" data-request-kind="покупки / аптека" data-request-district="аптека рядом с домом">Откликнуться</button>
+              <a class="request-action" href="requests.html?request=pharmacy-pickup#respond">Откликнуться</a>
             </div>
           </article>
         </div>
@@ -2023,7 +2029,7 @@
         </div>
         <div class="donate-actions">
           <p>Платёжную ссылку можно подключить позже. Пока самый бережный способ — написать координатору и выбрать удобный формат поддержки.</p>
-          <a class="button button-primary-dark" href="mailto:hello@example.com?subject=Хочу поддержать проект Мамам рядом">Написать о поддержке</a>
+          <a class="button button-primary-dark" href="donate.html">Выбрать формат поддержки</a>
         </div>
       </div>
     </section>
@@ -2033,7 +2039,7 @@
         <div class="intro-panel">
           <div class="kicker">Заявка</div>
           <h2>Расскажите, что нужно</h2>
-          <p>После заполнения форма откроет черновик письма координатору. Данные никуда не отправляются автоматически, пока вы сами не отправите письмо.</p>
+          <p>После заполнения форма отправит заявку на backend. Координатор сможет подключить к этому роуту таблицу, CRM или почтовое уведомление.</p>
           <p><strong>Важно:</strong> в описании не нужно писать полный адрес. Достаточно района, удобного времени и контакта для связи.</p>
         </div>
         <div class="form-panel">
@@ -2078,8 +2084,8 @@
             </label>
             <p class="form-hint">Контакты и точный адрес не появляются в открытых заявках. Их уточняет только координатор.</p>
             <div class="form-actions">
-              <button class="button button-primary" type="submit">Подготовить заявку</button>
-              <a class="button button-quiet" href="mailto:hello@example.com?subject=Хочу помочь маме">Написать напрямую</a>
+              <button class="button button-primary" type="submit">Отправить заявку</button>
+              <a class="button button-quiet" href="for-moms.html">Открыть страницу заявки</a>
             </div>
             <p class="form-result" id="formResult" aria-live="polite"></p>
           </form>
@@ -2276,10 +2282,11 @@
       });
     });
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
       const data = {
+        type: document.getElementById('role').value === 'помочь маме' ? 'response' : 'request',
         role: document.getElementById('role').value,
         name: document.getElementById('name').value.trim(),
         district: document.getElementById('district').value.trim(),
@@ -2288,21 +2295,25 @@
         contact: document.getElementById('contact').value.trim()
       };
 
-      const subject = `Заявка: ${data.role}`;
-      const body = [
-        `Я хочу: ${data.role}`,
-        `Имя: ${data.name}`,
-        `Район / город: ${data.district}`,
-        `Тип помощи: ${data.kind}`,
-        '',
-        'Что важно знать:',
-        data.message,
-        '',
-        `Контакт: ${data.contact}`
-      ].join('\n');
+      result.textContent = 'Отправляем заявку на backend...';
 
-      result.textContent = 'Черновик письма подготовлен. Проверьте его перед отправкой.';
-      window.location.href = `mailto:hello@example.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      try {
+        const response = await fetch('/api/submissions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const payload = await response.json();
+
+        if (!response.ok) {
+          throw new Error(payload.message || 'Не удалось отправить заявку.');
+        }
+
+        result.textContent = payload.message;
+        form.reset();
+      } catch (error) {
+        result.textContent = error.message;
+      }
     });
   </script>
 </body>

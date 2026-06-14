@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Поддержать проект — Мамам рядом</title>
+  <meta name="description" content="Поддержать проект Мамам рядом деньгами, вещами или временем." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">М</span><span>Мамам рядом</span></a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="donate.html">Поддержать</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="kicker">Поддержать проект</div>
+        <h1>Проекту тоже нужна тихая, регулярная помощь</h1>
+        <p class="lead">Можно поддержать рабочие расходы, передать вещи или помочь временем. Платёжную ссылку подключим позже; сейчас форма отправляет заявку на backend.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container grid-3">
+        <article class="card card-soft">
+          <span class="tag">деньги</span>
+          <h3>Рабочие расходы</h3>
+          <p>Домен, сервисы, рассылки, печать памяток и базовые инструменты координатора.</p>
+        </article>
+        <article class="card card-soft">
+          <span class="tag">вещи</span>
+          <h3>Полезное для семей</h3>
+          <p>Продукты, бытовая химия, подгузники, аптечные мелочи или готовая еда.</p>
+        </article>
+        <article class="card card-soft">
+          <span class="tag">время</span>
+          <h3>Руки и навыки</h3>
+          <p>Координация, дизайн, тексты, переводы, звонки или одна конкретная задача.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid-2">
+        <div>
+          <div class="kicker">Форма поддержки</div>
+          <h2>Напишите, как вам удобно помочь</h2>
+          <p class="lead">Форма отправляется на `/api/support`. Позже этот endpoint можно связать с CRM, таблицей или почтовым сервисом.</p>
+        </div>
+        <form class="card" data-api-form="/api/support">
+          <div class="field-grid">
+            <label>
+              Имя
+              <input name="name" type="text" required />
+            </label>
+            <label>
+              Контакт
+              <input name="contact" type="text" required />
+            </label>
+          </div>
+          <label>
+            Формат поддержки
+            <select name="supportType" required>
+              <option value="money">деньги / платёжная ссылка позже</option>
+              <option value="things">вещи или продукты</option>
+              <option value="time">время или навыки</option>
+            </select>
+          </label>
+          <label>
+            Комментарий
+            <textarea name="message" placeholder="Например: могу помогать с текстами раз в неделю или передать продукты."></textarea>
+          </label>
+          <button class="button button-green" type="submit">Отправить</button>
+          <p class="form-result" data-form-result aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Мамам рядом</div>
+  </footer>
+  <script src="scripts/site.js"></script>
+</body>
+</html>

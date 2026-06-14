@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Открытые заявки — Мамам рядом</title>
+  <meta name="description" content="Открытые бытовые заявки для помощи мамам после родов." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">М</span><span>Мамам рядом</span></a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="donate.html">Поддержать</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="kicker">Открытые заявки</div>
+        <h1>Найдите задачу, которую можно закрыть сегодня</h1>
+        <p class="lead">Список заявок загружается с backend-роута `/api/requests`. Когда подключим базу данных, здесь будут появляться реальные новые просьбы.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="grid-3" data-requests-list>
+          <div class="page-note">Загружаем заявки...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="respond">
+      <div class="container grid-2">
+        <div>
+          <div class="kicker">Отклик</div>
+          <h2>Оставьте контакт координатору</h2>
+          <p class="lead">Напишите, какая заявка вам подходит и когда удобно помочь. Backend примет отклик через `/api/submissions`.</p>
+        </div>
+        <form class="card" data-api-form="/api/submissions">
+          <input type="hidden" name="type" value="response" />
+          <div class="field-grid">
+            <label>
+              Имя
+              <input name="name" type="text" required />
+            </label>
+            <label>
+              Контакт
+              <input name="contact" type="text" required />
+            </label>
+          </div>
+          <label>
+            На какую заявку откликаетесь
+            <textarea name="message" placeholder="Например: могу забрать заказ из аптеки сегодня после 18:00." required></textarea>
+          </label>
+          <button class="button button-green" type="submit">Отправить отклик</button>
+          <p class="form-result" data-form-result aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Мамам рядом</div>
+  </footer>
+  <script src="scripts/site.js"></script>
+</body>
+</html>

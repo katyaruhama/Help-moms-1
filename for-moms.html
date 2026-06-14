@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Попросить помощь — Мамам рядом</title>
+  <meta name="description" content="Страница для мамы: короткая заявка на бытовую помощь после родов." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">М</span><span>Мамам рядом</span></a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="donate.html">Поддержать</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="kicker">Для мамы</div>
+        <h1>Попросить можно маленькое и конкретное дело</h1>
+        <p class="lead">Не нужно объяснять всю жизнь и писать полный адрес. Достаточно района, удобного времени и понятной бытовой задачи.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container grid-3">
+        <article class="card card-soft">
+          <span class="tag">1 шаг</span>
+          <h3>Опишите задачу</h3>
+          <p>Еда, покупки, аптека, лёгкая уборка, стирка или другая бытовая просьба.</p>
+        </article>
+        <article class="card card-soft">
+          <span class="tag">2 шаг</span>
+          <h3>Координатор уточнит детали</h3>
+          <p>Мы проверим границы задачи и передадим помощнику только безопасную часть информации.</p>
+        </article>
+        <article class="card card-soft">
+          <span class="tag">3 шаг</span>
+          <h3>Помощник берёт одно дело</h3>
+          <p>Контакт и точный адрес передаются только после подтверждения и спокойной договорённости.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid-2">
+        <div>
+          <div class="kicker">Заявка</div>
+          <h2>Расскажите, что нужно</h2>
+          <p class="lead">Форма отправляется на backend-роут `/api/submissions`. Сейчас он принимает и проверяет данные; постоянное хранение можно подключить следующим шагом.</p>
+        </div>
+        <form class="card" data-api-form="/api/submissions">
+          <input type="hidden" name="type" value="request" />
+          <div class="field-grid">
+            <label>
+              Имя
+              <input name="name" type="text" placeholder="Например, Анна" required />
+            </label>
+            <label>
+              Контакт
+              <input name="contact" type="text" placeholder="Телефон, Telegram или email" required />
+            </label>
+          </div>
+          <div class="field-grid">
+            <label>
+              Район / город
+              <input name="district" type="text" placeholder="Например, Северный район" />
+            </label>
+            <label>
+              Тип помощи
+              <select name="kind">
+                <option value="food">еда</option>
+                <option value="cleaning">уборка</option>
+                <option value="laundry">стирка</option>
+                <option value="shopping">покупки / аптека</option>
+                <option value="other">другое</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Что важно знать
+            <textarea name="message" placeholder="Коротко опишите задачу, удобное время и ограничения. Полный адрес здесь писать не нужно." required></textarea>
+          </label>
+          <button class="button button-green" type="submit">Отправить заявку</button>
+          <p class="form-result" data-form-result aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Мамам рядом</div>
+  </footer>
+  <script src="scripts/site.js"></script>
+</body>
+</html>

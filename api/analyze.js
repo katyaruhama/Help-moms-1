@@ -14,6 +14,7 @@ export default async function handler(req, res) {
       ok: true,
       service: 'Apify + LLM analyzer',
       providers: {
+        demo: true,
         openrouter: Boolean(process.env.OPENROUTER_API_KEY),
         google: Boolean(process.env.GEMINI_API_KEY)
       }
@@ -30,7 +31,12 @@ export default async function handler(req, res) {
     const provider = normalizeProvider(body.provider);
     const maxPages = clampPages(body.maxPages);
     const question = normalizeQuestion(body.question);
+    const demoMode = normalizeDemoMode(body.demoMode);
     const model = normalizeModel(provider, body.model);
+
+    if (demoMode) {
+      return sendJson(res, 200, createDemoAnalysis({ targetUrl, question, maxPages }));
+    }
 
     assertRequiredEnv('APIFY_API_TOKEN');
     assertRequiredEnv(provider === 'google' ? 'GEMINI_API_KEY' : 'OPENROUTER_API_KEY');
@@ -50,6 +56,7 @@ export default async function handler(req, res) {
       analysis,
       provider,
       model,
+      demoMode: false,
       itemCount: prepared.sources.length,
       sources: prepared.sources
     });
@@ -61,6 +68,52 @@ export default async function handler(req, res) {
         : 'Внутренняя ошибка сервера при анализе.'
     });
   }
+}
+
+function createDemoAnalysis({ targetUrl, question, maxPages }) {
+  const url = new URL(targetUrl);
+  const host = url.hostname.replace(/^www\./, '');
+  const pageLabel = maxPages === 1 ? '1 страницу' : `${maxPages} страниц`;
+  const analysis = [
+    `Демо-анализ для ${host}`,
+    '',
+    `Запрос пользователя: ${question}`,
+    '',
+    'Краткое резюме',
+    `Сервис показывает, как будет выглядеть результат после реального прохода Apify по сайту. В боевом режиме crawler получит ${pageLabel}, передаст текст в LLM и вернёт вывод на эту же страницу.`,
+    '',
+    'Главные тезисы',
+    '- Сайт нужно оценивать по тому, насколько быстро посетитель понимает пользу и следующий шаг.',
+    '- Самые сильные блоки стоит оставить ближе к началу: понятное обещание, пример результата и форма действия.',
+    '- Тексты лучше держать короткими: один экран - одна мысль, одна кнопка - одно действие.',
+    '',
+    'Практические выводы',
+    '- Уберите повторы в описаниях и оставьте только фразы, которые помогают принять решение.',
+    '- Покажите пример готового анализа, чтобы человек видел ценность до запуска платных API.',
+    '- Для настоящего режима отдельно проверьте Vercel Environment Variables и лимиты Apify/OpenRouter.',
+    '',
+    'Риски',
+    '- Если API-ключи не заданы или закончились credits, реальный анализ не выполнится.',
+    '- Если страница защищена от crawler-ботов, Apify может вернуть мало текста.',
+    '- Слишком длинные страницы нужно ограничивать, чтобы не перегружать LLM контекстом.',
+    '',
+    'Следующие шаги',
+    '1. Отредактировать лишние слова в первом экране и блоке AI-анализа.',
+    '2. Оставить демо-режим включённым для презентации проекта.',
+    '3. После появления credits снять галочку демо-режима и проверить реальный запрос.'
+  ].join('\n');
+
+  return {
+    analysis,
+    provider: 'demo',
+    model: 'demo-sample',
+    demoMode: true,
+    itemCount: 1,
+    sources: [{
+      title: `Демо-источник: ${host}`,
+      url: targetUrl
+    }]
+  };
 }
 
 async function runApifyCrawler(targetUrl, maxPages) {
@@ -209,6 +262,10 @@ function normalizeUrl(value) {
 
 function normalizeProvider(value) {
   return value === 'google' ? 'google' : 'openrouter';
+}
+
+function normalizeDemoMode(value) {
+  return value === true || value === 'true';
 }
 
 function normalizeQuestion(value) {

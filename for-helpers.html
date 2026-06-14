@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Помочь маме — Мамам рядом</title>
+  <meta name="description" content="Страница для помощников: как выбрать маленькую бытовую задачу и спокойно помочь семье после родов." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">М</span><span>Мамам рядом</span></a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="donate.html">Поддержать</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="kicker">Для помощника</div>
+        <h1>Можно помочь без обещаний на месяц</h1>
+        <p class="lead">Выберите одно понятное дело: купить продукты, забрать аптеку, передать еду, помочь со стиркой или лёгкой уборкой.</p>
+        <div class="actions">
+          <a class="button button-green" href="requests.html">Посмотреть заявки</a>
+          <a class="button button-quiet" href="faq.html">Правила безопасности</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container grid-3">
+        <article class="card card-soft">
+          <span class="tag">границы</span>
+          <h3>Одна заявка — одно дело</h3>
+          <p>Вы заранее видите примерное время, район и формат помощи.</p>
+        </article>
+        <article class="card card-soft">
+          <span class="tag">безопасность</span>
+          <h3>Контакт через координатора</h3>
+          <p>Личные данные передаются только после подтверждения обеих сторон.</p>
+        </article>
+        <article class="card card-soft">
+          <span class="tag">бережно</span>
+          <h3>Без советов и оценки</h3>
+          <p>Главное — сделать согласованное дело и не вторгаться в личное.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="kicker">Открытые заявки</div>
+        <h2>Выберите задачу, которую можете сделать</h2>
+        <div class="grid-3" data-requests-list>
+          <div class="page-note">Загружаем заявки из backend...</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Мамам рядом</div>
+  </footer>
+  <script src="scripts/site.js"></script>
+</body>
+</html>

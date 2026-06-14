@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI-анализ — Мамам рядом</title>
+  <meta name="description" content="Демо и реальный AI-анализ страницы через Apify и LLM." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">М</span><span>Мамам рядом</span></a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="donate.html">Поддержать</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="kicker">API + LLM</div>
+        <h1>AI-анализ страницы через backend</h1>
+        <p class="lead">Демо-режим работает без credits. Если снять галочку, backend `/api/analyze` запустит Apify и отправит текст в OpenRouter или Google AI Studio.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container grid-2">
+        <form class="card" data-analyzer-form>
+          <label>
+            URL для анализа
+            <input name="url" type="url" value="https://help-moms-1.vercel.app/" required />
+          </label>
+          <label>
+            Что нужно понять
+            <textarea name="question">Сделай краткий анализ страницы: главные тезисы, практические выводы, риски и 3 следующих шага.</textarea>
+          </label>
+          <label>
+            <span>
+              <input name="demoMode" type="checkbox" checked />
+              Демо-режим без платных API
+            </span>
+          </label>
+          <div class="field-grid">
+            <label>
+              Провайдер
+              <select name="provider">
+                <option value="openrouter">OpenRouter</option>
+                <option value="google">Google AI Studio</option>
+              </select>
+            </label>
+            <label>
+              Страниц
+              <select name="maxPages">
+                <option value="1">1 страница</option>
+                <option value="2">2 страницы</option>
+                <option value="3">3 страницы</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            Модель
+            <input name="model" type="text" placeholder="openai/gpt-4o-mini" />
+          </label>
+          <button class="button button-green" type="submit">Запустить анализ</button>
+        </form>
+        <article class="card">
+          <span class="tag">результат</span>
+          <h2>Ответ модели</h2>
+          <p class="request-meta" data-analysis-meta></p>
+          <pre style="white-space: pre-wrap; font-family: inherit;" data-analysis-result>Результат появится здесь.</pre>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Мамам рядом</div>
+  </footer>
+  <script src="scripts/site.js"></script>
+</body>
+</html>
