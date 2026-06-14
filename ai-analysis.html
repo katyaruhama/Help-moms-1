@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI-анализ — Мамам рядом</title>
-  <meta name="description" content="Демо и реальный AI-анализ страницы через Apify и LLM." />
+  <title>AI-анализ волонтёрских источников — Мамам рядом</title>
+  <meta name="description" content="Демо и реальный AI-анализ сайтов, публичных страниц и каналов о волонтёрстве и помощи мамам через Apify и LLM." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -27,8 +27,8 @@
     <section class="page-hero">
       <div class="container">
         <div class="kicker">API + LLM</div>
-        <h1>AI-анализ страницы через backend</h1>
-        <p class="lead">Демо-режим работает без credits. Если снять галочку, backend `/api/analyze` запустит Apify и отправит текст в OpenRouter или Google AI Studio.</p>
+        <h1>AI-анализ сайтов и каналов о волонтёрстве и помощи мамам</h1>
+        <p class="lead">Демо-режим работает без credits. Если снять галочку, backend `/api/analyze` запустит Apify, получит доступный текст источника и отправит его в OpenRouter или Google AI Studio.</p>
       </div>
     </section>
 
@@ -36,12 +36,12 @@
       <div class="container grid-2">
         <form class="card" data-analyzer-form>
           <label>
-            URL для анализа
+            URL источника
             <input name="url" type="url" value="https://help-moms-1.vercel.app/" required />
           </label>
           <label>
             Что нужно понять
-            <textarea name="question">Сделай краткий анализ страницы: главные тезисы, практические выводы, риски и 3 следующих шага.</textarea>
+            <textarea name="question">Проанализируй источник о волонтёрстве или помощи мамам: выдели полезные идеи, форматы поддержки, риски, тон коммуникации и 3 практических шага для проекта «Мамам рядом».</textarea>
           </label>
           <label>
             <span>
@@ -58,9 +58,9 @@
               </select>
             </label>
             <label>
-              Страниц
+              Объём Apify
               <select name="maxPages">
-                <option value="1">1 страница</option>
+                <option value="1">1 источник</option>
                 <option value="2">2 страницы</option>
                 <option value="3">3 страницы</option>
               </select>

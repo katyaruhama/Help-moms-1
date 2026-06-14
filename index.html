@@ -32,7 +32,7 @@
       --line: rgba(36, 48, 44, 0.13);
       --shadow: 0 22px 54px rgba(42, 51, 47, 0.13);
       --shadow-soft: 0 10px 26px rgba(42, 51, 47, 0.09);
-      --request-panel-height: 390px;
+      --request-panel-height: 460px;
       --font-ui: Manrope, Inter, "Segoe UI", Arial, sans-serif;
       --font-display: Lora, Georgia, serif;
       --radius: 8px;
@@ -376,7 +376,7 @@
     }
 
     .section {
-      padding: 70px 0;
+      padding: 60px 0;
     }
 
     .section-alt {
@@ -410,7 +410,7 @@
       justify-content: space-between;
       align-items: end;
       gap: 36px;
-      margin-bottom: 34px;
+      margin-bottom: 28px;
     }
 
     .kicker {
@@ -540,7 +540,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 16px;
-      margin-top: 22px;
+      margin-top: 16px;
     }
 
     .photo-card {
@@ -799,9 +799,13 @@
     .request-aside h2 {
       margin-bottom: 16px;
       color: white;
+      font-size: clamp(44px, 4.6vw, 62px);
+      line-height: 1.08;
     }
 
     .request-aside p {
+      max-width: 620px;
+      margin-bottom: 0;
       color: rgba(255, 255, 255, 0.82);
       font-size: 17px;
     }
@@ -811,10 +815,11 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: auto;
-      padding-top: 22px;
+      padding-top: 26px;
     }
 
     .filter-button {
+      min-height: 42px;
       padding: 9px 12px;
       border: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 999px;
@@ -1059,7 +1064,7 @@
     }
 
     .donate-section {
-      padding: 70px 0;
+      padding: 60px 0;
       background:
         linear-gradient(180deg, #fff8ef 0, #f8fbf8 100%);
     }
@@ -1136,7 +1141,7 @@
     }
 
     .analysis-section {
-      padding: 70px 0;
+      padding: 60px 0;
       background:
         linear-gradient(180deg, #f8fbf8 0, #eef5f1 100%);
     }
@@ -1276,7 +1281,7 @@
     }
 
     .form-section {
-      padding: 68px 0 78px;
+      padding: 58px 0 68px;
       background:
         linear-gradient(180deg, var(--soft) 0, #fff8ef 100%);
     }
@@ -1906,16 +1911,16 @@
       <div class="container analysis-layout">
         <div class="analysis-panel">
           <div class="kicker">API + LLM</div>
-          <h2>Анализ сайта через Apify и модель</h2>
-          <p class="section-copy">Введите страницу или раздел сайта. Сервис получит текст через Apify Website Content Crawler, передаст его в LLM и покажет вывод здесь же.</p>
+          <h2>AI-анализ сайтов и каналов, посвященных волонтёрской работе и помощи мамам</h2>
+          <p class="section-copy">Вставьте ссылку на сайт, публичную страницу или канал. Apify получит доступный текст, а LLM выделит идеи, форматы помощи и практики, которые можно применить в проекте.</p>
           <form id="analysisForm">
             <label>
-              URL для анализа
-              <input id="analysisUrl" type="url" placeholder="https://example.com/blog/" required />
+              URL источника
+              <input id="analysisUrl" type="url" placeholder="https://example.com/volunteer-moms" required />
             </label>
             <label>
               Что нужно понять
-              <textarea id="analysisQuestion" placeholder="Например: выдели главные темы, риски, полезные идеи и короткий план действий.">Сделай краткий анализ страницы: главные тезисы, практические выводы, риски и 3 следующих шага.</textarea>
+              <textarea id="analysisQuestion" placeholder="Например: найди полезные идеи для помощи мамам и волонтёрской координации.">Проанализируй источник о волонтёрстве или помощи мамам: выдели полезные идеи, форматы поддержки, риски, тон коммуникации и 3 практических шага для проекта «Мамам рядом».</textarea>
             </label>
             <label class="demo-switch">
               <input id="analysisDemo" type="checkbox" checked />
@@ -1933,9 +1938,9 @@
                 </select>
               </label>
               <label>
-                Страниц Apify
-                <select id="analysisPages">
-                  <option value="1">1 страница</option>
+              Объём Apify
+              <select id="analysisPages">
+                  <option value="1">1 источник</option>
                   <option value="2">2 страницы</option>
                   <option value="3">3 страницы</option>
                   <option value="5">5 страниц</option>
