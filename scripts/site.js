@@ -139,6 +139,107 @@ if (analyzerForm) {
   });
 }
 
+document.querySelectorAll('[data-materials-list]').forEach(async (list) => {
+  try {
+    const response = await fetch('/api/materials');
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Не удалось загрузить материалы.');
+    }
+
+    list.innerHTML = '';
+    data.materials.forEach((material) => {
+      const card = document.createElement('article');
+      card.className = 'card material-card';
+      card.innerHTML = `
+        <div>
+          <span class="tag">${escapeHtml(material.type === 'video' ? 'видео' : 'статья')}</span>
+          <h3>${escapeHtml(material.title)}</h3>
+          <div class="request-meta">${escapeHtml(material.source)}</div>
+        </div>
+        <p>${escapeHtml(material.summary)}</p>
+        <div class="material-why">
+          <strong>Почему важно</strong>
+          <span>${escapeHtml(material.whyItMatters)}</span>
+        </div>
+        <ul class="material-actions">
+          ${material.actions.map((action) => `<li>${escapeHtml(action)}</li>`).join('')}
+        </ul>
+        <a class="button button-quiet" href="${escapeHtml(material.url)}">Открыть материал</a>
+      `;
+      list.appendChild(card);
+    });
+  } catch (error) {
+    list.innerHTML = `<div class="page-note">${escapeHtml(error.message)}</div>`;
+  }
+});
+
+const materialForm = document.querySelector('[data-material-form]');
+
+if (materialForm) {
+  const formResult = document.querySelector('[data-material-form-result]');
+  const result = document.querySelector('[data-material-result]');
+  const meta = document.querySelector('[data-material-meta]');
+
+  materialForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const submit = materialForm.querySelector('[type="submit"]');
+    const payload = Object.fromEntries(new FormData(materialForm).entries());
+    payload.demoMode = payload.demoMode === 'on';
+
+    if (submit) {
+      submit.disabled = true;
+    }
+    if (formResult) {
+      formResult.textContent = payload.demoMode
+        ? 'Готовим демо-разбор...'
+        : 'Получаем расшифровку и запускаем LLM...';
+    }
+    if (result) {
+      result.textContent = '';
+    }
+    if (meta) {
+      meta.textContent = '';
+    }
+
+    try {
+      const response = await fetch('/api/materials', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Не удалось разобрать материал.');
+      }
+
+      if (formResult) {
+        formResult.textContent = data.demoMode ? 'Готово в демо-режиме.' : 'Готово. Материал разобран.';
+      }
+      if (meta) {
+        meta.textContent = `${data.material.title} · ${data.material.source}`;
+      }
+      if (result) {
+        result.textContent = data.material.analysis;
+      }
+    } catch (error) {
+      if (formResult) {
+        formResult.textContent = error.message;
+      }
+      if (meta) {
+        meta.textContent = 'Не получилось выполнить разбор.';
+      }
+    } finally {
+      if (submit) {
+        submit.disabled = false;
+      }
+    }
+  });
+}
+
 function escapeHtml(value) {
   return String(value)
     .replaceAll('&', '&amp;')

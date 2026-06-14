@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Полезные видео и материалы — Мамам рядом</title>
+  <meta name="description" content="Подборка видео и материалов о волонтёрстве, заботе после родов и бережной помощи мамам. Демо-режим и AI-разбор через Supadata и OpenRouter." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">М</span><span>Мамам рядом</span></a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="materials.html">Материалы</a>
+        <a href="donate.html">Поддержать</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="kicker">Видео и статьи</div>
+        <h1>Полезные материалы о помощи мамам после родов</h1>
+        <p class="lead">Здесь можно показывать вдохновляющие видео, короткие статьи и AI-разбор публичных материалов о волонтёрстве. Демо-подборка работает сразу, а реальный разбор видео идёт через backend, Supadata и OpenRouter.</p>
+        <div class="actions">
+          <a class="button button-green" href="#library">Смотреть подборку</a>
+          <a class="button button-quiet" href="#video-analysis">Разобрать видео</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="library">
+      <div class="container">
+        <div class="section-head-compact">
+          <div>
+            <div class="kicker">Библиотека</div>
+            <h2>Материалы, которые помогают объяснить смысл проекта</h2>
+          </div>
+          <p class="page-note">Пока это бережная демо-подборка. Позже сюда можно подтягивать YouTube, TikTok, Instagram, X или Facebook материалы через Supadata.</p>
+        </div>
+        <div class="materials-grid" data-materials-list>
+          <div class="page-note">Загружаем материалы...</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="video-analysis">
+      <div class="container grid-2">
+        <form class="card" data-material-form>
+          <span class="tag">Supadata + LLM</span>
+          <h2>AI-разбор видео</h2>
+          <p class="request-meta">Вставьте ссылку на публичное видео или пост. В демо-режиме сайт покажет пример. В реальном режиме backend получит расшифровку через Supadata и отправит текст в OpenRouter.</p>
+          <label>
+            Ссылка на видео или пост
+            <input name="url" type="url" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" required />
+          </label>
+          <label class="inline-check">
+            <input name="demoMode" type="checkbox" checked />
+            <span>Демо-режим без списания credits</span>
+          </label>
+          <button class="button button-green" type="submit">Разобрать материал</button>
+          <p class="form-result" data-material-form-result></p>
+        </form>
+        <article class="card material-analysis-card">
+          <span class="tag">результат</span>
+          <h2>Что важно для проекта</h2>
+          <p class="request-meta" data-material-meta>Результат появится здесь.</p>
+          <pre class="material-analysis-output" data-material-result></pre>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Мамам рядом</div>
+  </footer>
+  <script src="scripts/site.js"></script>
+</body>
+</html>

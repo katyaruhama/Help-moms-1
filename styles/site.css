@@ -335,6 +335,97 @@ textarea {
   color: var(--muted);
 }
 
+.section-head-compact {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 22px;
+  margin-bottom: 22px;
+}
+
+.section-head-compact h2 {
+  max-width: 700px;
+  margin-bottom: 0;
+}
+
+.section-head-compact .page-note {
+  max-width: 360px;
+  margin: 0;
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.material-card {
+  min-height: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.material-card p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.material-card .button {
+  width: 100%;
+  margin-top: auto;
+}
+
+.material-why {
+  display: grid;
+  gap: 4px;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: #f7fbf8;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.material-why strong {
+  color: var(--green-strong);
+}
+
+.material-actions {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 4px;
+  padding-left: 18px;
+  color: #4a5450;
+  font-size: 14px;
+}
+
+.inline-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inline-check input {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  accent-color: var(--green);
+}
+
+.material-analysis-card {
+  min-height: 100%;
+}
+
+.material-analysis-output {
+  min-height: 330px;
+  margin: 0;
+  white-space: pre-wrap;
+  color: #313a35;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.62;
+}
+
 .footer {
   padding: 30px 0;
   border-top: 1px solid var(--line);
@@ -351,8 +442,18 @@ textarea {
 
   .grid-2,
   .grid-3,
+  .materials-grid,
   .field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .section-head-compact {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .section-head-compact .page-note {
+    max-width: none;
   }
 }
 

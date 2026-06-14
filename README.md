@@ -8,6 +8,7 @@
 - Заявка: https://help-moms-1.vercel.app/for-moms.html
 - Открытые заявки: https://help-moms-1.vercel.app/requests.html
 - AI-анализ: https://help-moms-1.vercel.app/ai-analysis.html
+- Материалы: https://help-moms-1.vercel.app/materials.html
 
 ## Что внутри
 
@@ -17,6 +18,7 @@
 - `requests.html` — открытые заявки с загрузкой из backend API.
 - `donate.html` — страница поддержки проекта.
 - `ai-analysis.html` — отдельная страница AI-анализа сайтов, публичных страниц и каналов о волонтёрстве и помощи мамам.
+- `materials.html` — подборка полезных видео и материалов плюс AI-разбор видео через Supadata и LLM.
 - `faq.html` — вопросы, безопасность и границы.
 - `article-boundaries.html`, `article-small-help.html`, `article-normal-support.html` — короткие вдохновляющие статьи, на которые ведут фотографии на главной.
 - `styles/site.css` и `scripts/site.js` — общие стили и JavaScript для внутренних страниц.
@@ -24,7 +26,8 @@
 - `api/requests.js` — backend-роут открытых заявок.
 - `api/submissions.js` — backend-роут для заявок и откликов.
 - `api/support.js` — backend-роут для сообщений о поддержке проекта.
-- `.env.example` — пример переменных окружения для Apify, OpenRouter и Google AI Studio.
+- `api/materials.js` — backend-роут материалов: демо-библиотека и разбор публичных видео через Supadata + OpenRouter.
+- `.env.example` — пример переменных окружения для Apify, OpenRouter, Google AI Studio и Supadata.
 - `vercel.json` — минимальная конфигурация Vercel.
 - Формы отправляют данные на backend API. Постоянное хранение можно подключить через Supabase, Airtable, Google Sheets, Vercel KV или почтовый сервис.
 - На главной есть блоки для двух аудиторий, примеры коротких задач, FAQ, донаты и карточки заявок.
@@ -39,6 +42,7 @@
 - `APIFY_API_TOKEN` — обязательный токен Apify.
 - `OPENROUTER_API_KEY` — нужен, если выбран OpenRouter.
 - `GEMINI_API_KEY` — нужен, если выбран Google AI Studio / Gemini API.
+- `SUPADATA_API_KEY` — нужен для реального разбора публичных видео и постов на странице материалов.
 - `APIFY_ACTOR_ID` — опционально, по умолчанию `apify/website-content-crawler`.
 - `OPENROUTER_MODEL` — опционально, по умолчанию `openai/gpt-4o-mini`.
 - `GEMINI_MODEL` — опционально, по умолчанию `gemini-3.5-flash`.
@@ -65,6 +69,8 @@
 - `POST /api/submissions` — принимает просьбы мам и отклики помощников.
 - `POST /api/support` — принимает сообщения о поддержке проекта.
 - `POST /api/analyze` — запускает демо-анализ или реальный Apify + LLM pipeline.
+- `GET /api/materials` — возвращает демо-библиотеку материалов.
+- `POST /api/materials` — запускает демо-разбор или реальный Supadata transcript + OpenRouter анализ.
 
 Для реального продакшена следующим шагом нужно подключить хранилище или уведомления: Supabase, Airtable, Google Sheets, Vercel KV, Resend/SendGrid или Telegram-бот.
 
