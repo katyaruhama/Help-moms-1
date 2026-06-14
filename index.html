@@ -32,7 +32,7 @@
       --line: rgba(36, 48, 44, 0.13);
       --shadow: 0 22px 54px rgba(42, 51, 47, 0.13);
       --shadow-soft: 0 10px 26px rgba(42, 51, 47, 0.09);
-      --request-panel-height: 370px;
+      --request-panel-height: 390px;
       --font-ui: Manrope, Inter, "Segoe UI", Arial, sans-serif;
       --font-display: Lora, Georgia, serif;
       --radius: 8px;
@@ -554,10 +554,21 @@
       box-shadow: var(--shadow);
     }
 
+    .photo-card a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
     .photo-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.22s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.035);
     }
 
     .photo-caption {
@@ -565,7 +576,7 @@
       left: 14px;
       right: 14px;
       bottom: 14px;
-      min-height: 54px;
+      height: 64px;
       display: flex;
       align-items: center;
       padding: 10px 12px;
@@ -576,6 +587,7 @@
       backdrop-filter: blur(12px);
       font-size: 13px;
       font-weight: 850;
+      line-height: 1.3;
     }
 
     .steps,
@@ -780,6 +792,10 @@
       box-shadow: var(--shadow);
     }
 
+    .request-aside-copy {
+      min-height: 0;
+    }
+
     .request-aside h2 {
       margin-bottom: 16px;
       color: white;
@@ -795,7 +811,7 @@
       flex-wrap: wrap;
       gap: 8px;
       margin-top: auto;
-      padding-top: 24px;
+      padding-top: 22px;
     }
 
     .filter-button {
@@ -830,6 +846,7 @@
       flex-direction: column;
       padding: 22px;
       border-left: 6px solid var(--mint);
+      scroll-margin-top: 92px;
     }
 
     .request-card[data-kind="food"] {
@@ -956,8 +973,10 @@
     }
 
     .after-card {
+      display: block;
       position: relative;
       overflow: hidden;
+      color: inherit;
       background:
         linear-gradient(145deg, #ffffff 0, #fffaf5 100%);
       box-shadow:
@@ -974,6 +993,11 @@
         0 10px 18px rgba(212, 93, 76, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 0.92);
       transform: perspective(900px) translateY(-7px) rotateX(2deg);
+    }
+
+    .after-card:focus-visible {
+      outline: 3px solid rgba(243, 195, 79, 0.72);
+      outline-offset: 4px;
     }
 
     .section-helper-flow .step {
@@ -1613,16 +1637,22 @@
         </div>
         <div class="photo-story" aria-label="Атмосфера проекта">
           <figure class="photo-card">
-            <img src="assets/entry-support.jpg" alt="Светлая прихожая с сумкой, мягким текстилем и спокойным домашним светом" loading="lazy" />
-            <figcaption class="photo-caption">Помощь можно передать спокойно и без лишнего вторжения</figcaption>
+            <a href="article-boundaries.html">
+              <img src="assets/entry-support.jpg" alt="Светлая прихожая с сумкой, мягким текстилем и спокойным домашним светом" loading="lazy" />
+              <figcaption class="photo-caption">Помощь можно передать спокойно и без лишнего вторжения</figcaption>
+            </a>
           </figure>
           <figure class="photo-card">
-            <img src="assets/soft-support-photo.jpg" alt="Домашний стол с чаем, блокнотом, пледом и детскими вещами" loading="lazy" />
-            <figcaption class="photo-caption">Одно дело, понятное время, бережные границы</figcaption>
+            <a href="article-small-help.html">
+              <img src="assets/soft-support-photo.jpg" alt="Домашний стол с чаем, блокнотом, пледом и детскими вещами" loading="lazy" />
+              <figcaption class="photo-caption">Одно дело, понятное время, бережные границы</figcaption>
+            </a>
           </figure>
           <figure class="photo-card">
-            <img src="assets/hero-soft-home.jpg" alt="Мягкий домашний свет, плед, чашка и спокойное место рядом с окном" loading="lazy" />
-            <figcaption class="photo-caption">Не подвиг, а нормальная поддержка рядом</figcaption>
+            <a href="article-normal-support.html">
+              <img src="assets/hero-soft-home.jpg" alt="Мягкий домашний свет, плед, чашка и спокойное место рядом с окном" loading="lazy" />
+              <figcaption class="photo-caption">Не подвиг, а нормальная поддержка рядом</figcaption>
+            </a>
           </figure>
         </div>
       </div>
@@ -1638,18 +1668,18 @@
           <p class="section-copy">Самое важное для мамы: понимать, что произойдёт дальше и кто увидит личные данные.</p>
         </div>
         <div class="after-grid">
-          <article class="after-card" data-step="1">
+          <a class="after-card" href="for-moms.html" data-step="1">
             <h3>Мама пишет короткую просьбу</h3>
             <p class="card-text">В заявке достаточно района, времени, типа помощи и контакта. Полный адрес не нужен на первом шаге.</p>
-          </article>
-          <article class="after-card" data-step="2">
+          </a>
+          <a class="after-card" href="faq.html" data-step="2">
             <h3>Координатор уточняет детали</h3>
             <p class="card-text">Проверяет, что задача бытовая, понятная и безопасная: что принести, когда прийти и какие есть ограничения.</p>
-          </article>
-          <article class="after-card" data-step="3">
+          </a>
+          <a class="after-card" href="for-helpers.html" data-step="3">
             <h3>Помощник берёт одно дело</h3>
             <p class="card-text">Видит район, время и объём задачи. Контакты передаются только после подтверждения обеих сторон.</p>
-          </article>
+          </a>
         </div>
       </div>
     </section>
@@ -1792,9 +1822,11 @@
     <section class="section" id="requests">
       <div class="container requests-layout">
         <aside class="request-aside">
-          <div class="kicker">Открытые заявки</div>
-          <h2>Выберите то, что можете сделать сегодня</h2>
-          <p>В карточке сразу видно, что нужно, где примерно, когда и сколько времени займёт помощь.</p>
+          <div class="request-aside-copy">
+            <div class="kicker">Открытые заявки</div>
+            <h2>Выберите то, что можете сделать сегодня</h2>
+            <p>В карточке сразу видно, что нужно, где примерно, когда и сколько времени займёт помощь.</p>
+          </div>
           <div class="filter-row" aria-label="Фильтры заявок">
             <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">Все</button>
             <button class="filter-button" type="button" data-filter="food" aria-pressed="false">Еда</button>
@@ -2139,7 +2171,6 @@
     });
 
     const filterButtons = document.querySelectorAll('[data-filter]');
-    const requestCards = document.querySelectorAll('[data-kind]');
 
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -2150,9 +2181,14 @@
           item.classList.toggle('is-active', isActive);
           item.setAttribute('aria-pressed', String(isActive));
         });
-        requestCards.forEach((card) => {
-          card.hidden = filter !== 'all' && card.dataset.kind !== filter;
-        });
+
+        const target = filter === 'all'
+          ? document.getElementById('requests')
+          : document.querySelector(`.request-card[data-kind="${filter}"]`);
+
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 

@@ -128,8 +128,8 @@ h2 {
 h1 {
   max-width: 850px;
   margin-bottom: 18px;
-  font-size: clamp(42px, 6vw, 76px);
-  line-height: 1;
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1.04;
 }
 
 h2 {
@@ -277,9 +277,21 @@ textarea {
 }
 
 .request-card {
-  display: grid;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   border-left: 6px solid var(--mint);
+}
+
+.request-card .pill-row {
+  margin-top: auto;
+}
+
+.request-card-action {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
 }
 
 .request-card[data-kind="food"] {

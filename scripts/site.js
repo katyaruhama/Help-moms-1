@@ -82,7 +82,7 @@ document.querySelectorAll('[data-requests-list]').forEach(async (list) => {
           <span class="pill">${escapeHtml(request.time)}</span>
           <span class="pill">${escapeHtml(request.duration)}</span>
         </div>
-        <a class="button button-green" href="requests.html?request=${encodeURIComponent(request.id)}#respond">Откликнуться</a>
+        <a class="button button-green request-card-action" href="requests.html?request=${encodeURIComponent(request.id)}#respond">Откликнуться</a>
       `;
       list.appendChild(card);
     });

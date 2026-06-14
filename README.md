@@ -18,6 +18,7 @@
 - `donate.html` — страница поддержки проекта.
 - `ai-analysis.html` — отдельная страница AI-анализа.
 - `faq.html` — вопросы, безопасность и границы.
+- `article-boundaries.html`, `article-small-help.html`, `article-normal-support.html` — короткие вдохновляющие статьи, на которые ведут фотографии на главной.
 - `styles/site.css` и `scripts/site.js` — общие стили и JavaScript для внутренних страниц.
 - `api/analyze.js` — serverless API для Vercel: Apify -> LLM -> JSON-ответ сайту.
 - `api/requests.js` — backend-роут открытых заявок.
