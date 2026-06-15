@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход и регистрация — Мамам рядом</title>
+  <meta name="description" content="Регистрация и вход пользователей проекта Мамам рядом через Supabase Auth." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-mark">М</span><span>Мамам рядом</span></a>
+      <nav class="nav-links" aria-label="Главное меню">
+        <a href="for-moms.html">Для мамы</a>
+        <a href="for-helpers.html">Для помощника</a>
+        <a href="requests.html">Заявки</a>
+        <a href="materials.html">Материалы</a>
+        <a href="donate.html">Поддержать</a>
+        <a href="auth.html">Войти</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <div class="kicker">Аккаунт</div>
+        <h1>Регистрация и вход</h1>
+        <p class="lead">Аккаунт нужен, чтобы позже сохранять заявки, отклики и историю помощи. Сейчас регистрация подключается через Supabase Auth.</p>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container auth-layout">
+        <article class="card auth-status-card">
+          <span class="tag">статус</span>
+          <h2>Ваш аккаунт</h2>
+          <p data-auth-status>Проверяем подключение...</p>
+          <div class="actions">
+            <button class="button button-quiet" type="button" data-auth-logout hidden>Выйти</button>
+          </div>
+        </article>
+
+        <form class="card" data-auth-signup>
+          <span class="tag">новый пользователь</span>
+          <h2>Создать аккаунт</h2>
+          <label>
+            Имя
+            <input name="name" type="text" placeholder="Например, Анна" required />
+          </label>
+          <label>
+            Роль
+            <select name="role" required>
+              <option value="mom">мама</option>
+              <option value="helper">помощник</option>
+              <option value="coordinator">координатор</option>
+            </select>
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="name@example.com" required />
+          </label>
+          <label>
+            Пароль
+            <input name="password" type="password" minlength="6" placeholder="Минимум 6 символов" required />
+          </label>
+          <button class="button button-green" type="submit">Зарегистрироваться</button>
+          <p class="form-result" data-auth-signup-result></p>
+        </form>
+
+        <form class="card" data-auth-login>
+          <span class="tag">уже есть аккаунт</span>
+          <h2>Войти</h2>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="name@example.com" required />
+          </label>
+          <label>
+            Пароль
+            <input name="password" type="password" required />
+          </label>
+          <button class="button button-green" type="submit">Войти</button>
+          <p class="form-result" data-auth-login-result></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© 2026 Мамам рядом</div>
+  </footer>
+  <script type="module" src="scripts/auth.js"></script>
+</body>
+</html>
