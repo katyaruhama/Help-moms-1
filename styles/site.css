@@ -98,8 +98,21 @@ textarea {
   font-weight: 750;
 }
 
+.nav-links a {
+  display: inline-flex;
+  transform-origin: center;
+  transition: color 0.18s ease, transform 0.18s ease;
+}
+
 .nav-links a:hover {
   color: var(--green);
+  transform: scale(1.045);
+}
+
+.nav-links a:focus-visible {
+  color: var(--green);
+  outline: 3px solid rgba(243, 195, 79, 0.72);
+  outline-offset: 4px;
 }
 
 .page-hero {
