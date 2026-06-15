@@ -43,3 +43,35 @@ test('materials page keeps library and video analysis entry points', async () =>
   assert.match(html, /data-material-form/);
   assert.match(html, /#video-analysis/);
 });
+
+test('custom cursor assets are connected on key pages', async () => {
+  const pages = ['index.html', 'auth.html', 'materials.html', 'requests.html'];
+
+  for (const page of pages) {
+    const html = await readFile(page, 'utf8');
+    assert.match(html, /styles\/cursor\.css/, `${page} should load cursor styles`);
+    assert.match(html, /scripts\/cursor\.js/, `${page} should load cursor script`);
+  }
+
+  const script = await readFile('scripts/cursor.js', 'utf8');
+  assert.match(script, /bottle/);
+  assert.match(script, /ladle/);
+});
+
+test('soft motion assets are connected on key pages', async () => {
+  const pages = ['index.html', 'auth.html', 'materials.html', 'requests.html'];
+
+  for (const page of pages) {
+    const html = await readFile(page, 'utf8');
+    assert.match(html, /styles\/soft-motion\.css/, `${page} should load soft motion styles`);
+    assert.match(html, /scripts\/soft-motion\.js/, `${page} should load soft motion script`);
+  }
+
+  const script = await readFile('scripts/soft-motion.js', 'utf8');
+  const styles = await readFile('styles/soft-motion.css', 'utf8');
+  assert.match(script, /IntersectionObserver/);
+  assert.match(script, /localStorage/);
+  assert.match(script, /aria-pressed/);
+  assert.match(styles, /motion-toggle/);
+  assert.match(styles, /prefers-reduced-motion/);
+});

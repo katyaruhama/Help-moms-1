@@ -1,0 +1,137 @@
+@media (prefers-reduced-motion: no-preference) {
+  body.motion-ready .motion-reveal {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+
+  body.motion-ready .motion-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--motion-delay, 0ms);
+  }
+
+  body.motion-ready .brand-mark {
+    animation: brand-breathe 7s ease-in-out infinite;
+  }
+
+  body.motion-ready .tag,
+  body.motion-ready .eyebrow,
+  body.motion-ready .analysis-badge,
+  body.motion-ready .status {
+    position: relative;
+    overflow: hidden;
+  }
+
+  body.motion-ready .tag::after,
+  body.motion-ready .eyebrow::after,
+  body.motion-ready .analysis-badge::after,
+  body.motion-ready .status::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 0 32%, rgba(255, 255, 255, 0.34) 48%, transparent 64% 100%);
+    transform: translateX(-120%);
+    animation: soft-shimmer 7.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  body.motion-ready .button:hover {
+    transform: translateY(-2px);
+  }
+
+  @keyframes brand-breathe {
+    0%,
+    100% {
+      transform: translateY(0) scale(1);
+    }
+
+    50% {
+      transform: translateY(-1px) scale(1.035);
+    }
+  }
+
+  @keyframes soft-shimmer {
+    0%,
+    72% {
+      transform: translateX(-120%);
+    }
+
+    100% {
+      transform: translateX(120%);
+    }
+  }
+}
+
+.motion-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 10000;
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(31, 107, 79, 0.18);
+  border-radius: 50%;
+  color: var(--green-strong, #0f4f39);
+  background: rgba(255, 250, 245, 0.88);
+  box-shadow: 0 14px 34px rgba(42, 51, 47, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.motion-toggle:hover {
+  transform: translateY(-2px);
+}
+
+.motion-toggle:focus-visible {
+  outline: 3px solid rgba(243, 195, 79, 0.72);
+  outline-offset: 4px;
+}
+
+.motion-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+.motion-toggle path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+
+.motion-toggle[data-enabled="false"] {
+  color: #68736d;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.motion-toggle[data-enabled="false"] svg {
+  opacity: 0.55;
+}
+
+.motion-toggle[data-enabled="false"]::after {
+  content: "";
+  position: absolute;
+  width: 25px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: rotate(-35deg);
+}
+
+body.motion-disabled .motion-reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 680px) {
+  .motion-toggle {
+    right: 14px;
+    bottom: 14px;
+    width: 40px;
+    height: 40px;
+  }
+}
