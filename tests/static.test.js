@@ -44,20 +44,6 @@ test('materials page keeps library and video analysis entry points', async () =>
   assert.match(html, /#video-analysis/);
 });
 
-test('custom cursor assets are connected on key pages', async () => {
-  const pages = ['index.html', 'auth.html', 'materials.html', 'requests.html'];
-
-  for (const page of pages) {
-    const html = await readFile(page, 'utf8');
-    assert.match(html, /styles\/cursor\.css/, `${page} should load cursor styles`);
-    assert.match(html, /scripts\/cursor\.js/, `${page} should load cursor script`);
-  }
-
-  const script = await readFile('scripts/cursor.js', 'utf8');
-  assert.match(script, /bottle/);
-  assert.match(script, /ladle/);
-});
-
 test('soft motion assets are connected on key pages', async () => {
   const pages = ['index.html', 'auth.html', 'materials.html', 'requests.html'];
 

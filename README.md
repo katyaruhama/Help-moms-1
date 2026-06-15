@@ -24,6 +24,7 @@
 - `faq.html` — вопросы, безопасность и границы.
 - `article-boundaries.html`, `article-small-help.html`, `article-normal-support.html` — короткие вдохновляющие статьи, на которые ведут фотографии на главной.
 - `styles/site.css` и `scripts/site.js` — общие стили и JavaScript для внутренних страниц.
+- `styles/soft-motion.css` и `scripts/soft-motion.js` — бережные анимации с пользовательским переключателем: появление блоков при скролле, дыхание логотипа и мягкий shimmer на тэги.
 - `api/analyze.js` — serverless API для Vercel: Apify -> LLM -> JSON-ответ сайту.
 - `api/requests.js` — backend-роут открытых заявок.
 - `api/submissions.js` — backend-роут для заявок и откликов.
