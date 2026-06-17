@@ -64,6 +64,9 @@ function clean(value) {
 
 function sendJson(res, status, payload) {
   res.statusCode = status;
+  res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
   res.end(JSON.stringify(payload));
 }

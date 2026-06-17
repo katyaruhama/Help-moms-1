@@ -31,7 +31,7 @@
       <div class="container">
         <div class="kicker">Аккаунт</div>
         <h1>Регистрация и вход</h1>
-        <p class="lead">Аккаунт нужен, чтобы позже сохранять заявки, отклики и историю помощи. Сейчас регистрация подключается через Supabase Auth.</p>
+        <p class="lead">Создайте аккаунт по email и паролю. Подтверждение почты не требуется, а после регистрации на баланс начисляются 5 кредитов для реального AI-анализа.</p>
       </div>
     </section>
 
@@ -41,6 +41,7 @@
           <span class="tag">статус</span>
           <h2>Ваш аккаунт</h2>
           <p data-auth-status>Проверяем подключение...</p>
+          <p class="credit-note">Баланс: <strong data-credit-balance>проверяем...</strong></p>
           <div class="actions">
             <button class="button button-quiet" type="button" data-auth-logout hidden>Выйти</button>
           </div>
@@ -49,6 +50,7 @@
         <form class="card" data-auth-signup>
           <span class="tag">новый пользователь</span>
           <h2>Создать аккаунт</h2>
+          <p class="request-meta">После регистрации вы сразу сможете войти и потратить кредиты на анализ сайтов, каналов и видео.</p>
           <label>
             Имя
             <input name="name" type="text" placeholder="Например, Анна" required />
@@ -76,6 +78,7 @@
         <form class="card" data-auth-login>
           <span class="tag">уже есть аккаунт</span>
           <h2>Войти</h2>
+          <p class="request-meta">Войдите, чтобы увидеть баланс и запускать реальные AI-запросы.</p>
           <label>
             Email
             <input name="email" type="email" placeholder="name@example.com" required />
@@ -94,6 +97,7 @@
   <footer class="footer">
     <div class="container">© 2026 Мамам рядом</div>
   </footer>
+  <script src="scripts/account.js"></script>
   <script type="module" src="scripts/auth.js"></script>
   <script src="scripts/soft-motion.js"></script>
 </body>

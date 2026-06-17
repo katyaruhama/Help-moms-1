@@ -1,3 +1,5 @@
+import { PublicHttpError, consumeCreditForUser, requireAuthenticatedUser } from './_supabase.js';
+
 const APIFY_API_BASE = 'https://api.apify.com/v2';
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -41,6 +43,9 @@ export default async function handler(req, res) {
     assertRequiredEnv('APIFY_API_TOKEN');
     assertRequiredEnv(provider === 'google' ? 'GEMINI_API_KEY' : 'OPENROUTER_API_KEY');
 
+    const user = await requireAuthenticatedUser(req);
+    const credit = await consumeCreditForUser(user.id, 'site_analysis', targetUrl);
+
     const items = await runApifyCrawler(targetUrl, maxPages);
     const prepared = prepareCrawlerItems(items);
 
@@ -57,15 +62,17 @@ export default async function handler(req, res) {
       provider,
       model,
       demoMode: false,
+      creditsRemaining: credit.creditsRemaining,
       itemCount: prepared.sources.length,
       sources: prepared.sources
     });
   } catch (error) {
-    const status = error instanceof PublicError ? error.status : 500;
+    const status = error instanceof PublicError || error instanceof PublicHttpError ? error.status : 500;
     return sendJson(res, status, {
-      message: error instanceof PublicError
+      message: error instanceof PublicError || error instanceof PublicHttpError
         ? error.message
-        : 'Внутренняя ошибка сервера при анализе.'
+        : 'Внутренняя ошибка сервера при анализе.',
+      ...(error instanceof PublicHttpError ? error.details : {})
     });
   }
 }
@@ -373,7 +380,10 @@ function extractApiError(payload, fallback) {
 
 function sendJson(res, status, payload) {
   res.statusCode = status;
+  res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
   res.end(JSON.stringify(payload));
 }
 

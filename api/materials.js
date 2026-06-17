@@ -1,3 +1,5 @@
+import { PublicHttpError, consumeCreditForUser, requireAuthenticatedUser } from './_supabase.js';
+
 const SUPADATA_API_BASE = 'https://api.supadata.ai/v1';
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
 const DEFAULT_OPENROUTER_MODEL = 'openai/gpt-4o-mini';
@@ -73,6 +75,9 @@ export default async function handler(req, res) {
       return sendJson(res, 200, createDemoVideoAnalysis(url));
     }
 
+    const user = await requireAuthenticatedUser(req);
+    const credit = await consumeCreditForUser(user.id, 'material_analysis', url);
+
     const [metadata, transcriptResponse] = await Promise.all([
       fetchSupadataJson('metadata', { url }),
       fetchSupadataJson('transcript', { url, text: 'true', mode: 'auto' })
@@ -92,11 +97,13 @@ export default async function handler(req, res) {
         url,
         thumbnailUrl: metadata?.media?.thumbnailUrl || '',
         analysis
-      }
+      },
+      creditsRemaining: credit.creditsRemaining
     });
   } catch (error) {
     return sendJson(res, error.status || 500, {
-      message: error.publicMessage || 'Не удалось разобрать материал.'
+      message: error.publicMessage || error.message || 'Не удалось разобрать материал.',
+      ...(error instanceof PublicHttpError ? error.details : {})
     });
   }
 }
@@ -297,7 +304,10 @@ async function parseResponse(response) {
 
 function sendJson(res, status, payload) {
   res.statusCode = status;
+  res.setHeader('Cache-Control', 'no-store');
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('X-Content-Type-Options', 'nosniff');
   res.end(JSON.stringify(payload));
 }
 

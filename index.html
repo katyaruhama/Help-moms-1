@@ -2060,7 +2060,8 @@
         <div class="analysis-panel">
           <div class="kicker">API + LLM</div>
           <h2>AI-анализ сайтов и каналов, посвященных волонтёрской работе и помощи мамам</h2>
-          <p class="section-copy">Вставьте ссылку на сайт, публичную страницу или канал. Apify получит доступный текст, а LLM выделит идеи, форматы помощи и практики, которые можно применить в проекте.</p>
+          <p class="section-copy">Вставьте ссылку на сайт, публичную страницу или канал. Демо бесплатно, реальный анализ доступен после входа и стоит 1 кредит.</p>
+          <p class="form-hint">Ваш баланс: <strong data-credit-balance>проверяем...</strong></p>
           <form id="analysisForm">
             <label>
               URL источника
@@ -2318,6 +2319,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanta/0.5.24/vanta.net.min.js"></script>
+  <script src="scripts/account.js"></script>
   <script>
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const vantaTarget = document.getElementById('trustVanta');
@@ -2435,9 +2437,10 @@
       analysisSources.innerHTML = '';
 
       try {
+        const headers = await buildAnalysisHeaders(payload.demoMode);
         const response = await fetch('/api/analyze', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers,
           body: JSON.stringify(payload)
         });
         const data = await response.json();
@@ -2451,7 +2454,7 @@
         analysisBadge.textContent = 'готово';
         analysisStatus.textContent = data.demoMode
           ? 'Готово: показан демонстрационный результат.'
-          : 'Готово: данные получены и проанализированы.';
+          : `Готово: данные получены и проанализированы. Осталось: ${window.mamamAccount?.formatCredits?.(data.creditsRemaining) || data.creditsRemaining}.`;
         analysisProviderMeta.textContent = data.demoMode
           ? `Режим: демо. Модель: ${data.model}.`
           : `Провайдер: ${data.provider}. Модель: ${data.model}. Страниц: ${data.itemCount}.`;
@@ -2464,6 +2467,7 @@
         });
 
         analysisMeta.hidden = false;
+        window.mamamAccount?.refreshCreditDisplays?.();
       } catch (error) {
         analysisOutput.classList.add('is-muted');
         analysisOutput.textContent = error.message;
@@ -2473,6 +2477,23 @@
         analysisSubmit.disabled = false;
       }
     });
+
+    async function buildAnalysisHeaders(demoMode) {
+      const headers = { 'Content-Type': 'application/json' };
+
+      if (demoMode) {
+        return headers;
+      }
+
+      const token = await window.mamamAccount?.getAccessToken?.();
+
+      if (!token) {
+        throw new Error('Войдите в аккаунт, чтобы запустить реальный анализ. После регистрации начисляется 5 кредитов.');
+      }
+
+      headers.Authorization = `Bearer ${token}`;
+      return headers;
+    }
 
     const form = document.getElementById('helpForm');
     const result = document.getElementById('formResult');

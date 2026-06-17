@@ -114,9 +114,10 @@ if (analyzerForm) {
     meta.textContent = '';
 
     try {
+      const headers = await buildAuthorizedHeaders(payload.demoMode);
       const response = await fetch('/api/analyze', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(payload)
       });
       const data = await response.json();
@@ -128,7 +129,8 @@ if (analyzerForm) {
       result.textContent = data.analysis;
       meta.textContent = data.demoMode
         ? 'Режим: демо'
-        : `Провайдер: ${data.provider}. Модель: ${data.model}. Страниц: ${data.itemCount}.`;
+        : `Провайдер: ${data.provider}. Модель: ${data.model}. Страниц: ${data.itemCount}. Осталось: ${window.mamamAccount?.formatCredits?.(data.creditsRemaining) || data.creditsRemaining}.`;
+      window.mamamAccount?.refreshCreditDisplays?.();
     } catch (error) {
       result.textContent = error.message;
     } finally {
@@ -205,9 +207,10 @@ if (materialForm) {
     }
 
     try {
+      const headers = await buildAuthorizedHeaders(payload.demoMode);
       const response = await fetch('/api/materials', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(payload)
       });
       const data = await response.json();
@@ -217,7 +220,9 @@ if (materialForm) {
       }
 
       if (formResult) {
-        formResult.textContent = data.demoMode ? 'Готово в демо-режиме.' : 'Готово. Материал разобран.';
+        formResult.textContent = data.demoMode
+          ? 'Готово в демо-режиме.'
+          : `Готово. Материал разобран. Осталось: ${window.mamamAccount?.formatCredits?.(data.creditsRemaining) || data.creditsRemaining}.`;
       }
       if (meta) {
         meta.textContent = `${data.material.title} · ${data.material.source}`;
@@ -225,6 +230,7 @@ if (materialForm) {
       if (result) {
         result.textContent = data.material.analysis;
       }
+      window.mamamAccount?.refreshCreditDisplays?.();
     } catch (error) {
       if (formResult) {
         formResult.textContent = error.message;
@@ -238,6 +244,23 @@ if (materialForm) {
       }
     }
   });
+}
+
+async function buildAuthorizedHeaders(demoMode) {
+  const headers = { 'Content-Type': 'application/json' };
+
+  if (demoMode) {
+    return headers;
+  }
+
+  const token = await window.mamamAccount?.getAccessToken?.();
+
+  if (!token) {
+    throw new Error('Войдите в аккаунт, чтобы запустить реальный анализ. После регистрации начисляется 5 кредитов.');
+  }
+
+  headers.Authorization = `Bearer ${token}`;
+  return headers;
 }
 
 function escapeHtml(value) {

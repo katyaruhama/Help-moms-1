@@ -31,6 +31,8 @@
 - `api/support.js` — backend-роут для сообщений о поддержке проекта.
 - `api/materials.js` — backend-роут материалов: демо-библиотека и разбор публичных видео через Supadata + OpenRouter.
 - `api/config.js` — отдаёт публичную конфигурацию Supabase для браузера.
+- `api/_supabase.js` — серверная проверка Supabase-сессии и списание кредитов через service role key.
+- `scripts/account.js` — клиентский помощник Supabase: сессия, access token, профиль и показ баланса кредитов.
 - `tests/` — тесты API и ключевых HTML/JS возможностей на встроенном `node:test`.
 - `.env.example` — пример переменных окружения для Apify, OpenRouter, Google AI Studio, Supadata и Supabase.
 - `vercel.json` — минимальная конфигурация Vercel.
@@ -50,6 +52,7 @@
 - `SUPADATA_API_KEY` — нужен для реального разбора публичных видео и постов на странице материалов.
 - `SUPABASE_URL` — URL проекта Supabase.
 - `SUPABASE_ANON_KEY` — публичный anon key Supabase для регистрации и входа.
+- `SUPABASE_SERVICE_ROLE_KEY` — приватный ключ Supabase только для backend API на Vercel. Нельзя добавлять в GitHub или клиентский JavaScript.
 - `APIFY_ACTOR_ID` — опционально, по умолчанию `apify/website-content-crawler`.
 - `OPENROUTER_MODEL` — опционально, по умолчанию `openai/gpt-4o-mini`.
 - `GEMINI_MODEL` — опционально, по умолчанию `gemini-3.5-flash`.
@@ -72,6 +75,15 @@ npm test
 
 Тесты проверяют демо-режимы API, валидацию форм, публичную конфигурацию Supabase, наличие страницы регистрации и основные точки входа на сайте.
 
+Отдельные security-проверки смотрят, что:
+
+- API отвечает с базовыми защитными заголовками.
+- Неподдерживаемые HTTP-методы отклоняются.
+- Некорректные URL не проходят в AI/Supadata API.
+- Открытые заявки не содержат контактов и точных адресов.
+- Публичные файлы не содержат реальные API-токены.
+- Клиентский рендеринг экранирует значения, пришедшие из API.
+
 ## Демо-режим
 
 В блоке AI-анализа демо-режим включён по умолчанию. Он показывает пример результата без вызова Apify и LLM. Чтобы запустить настоящий анализ, снимите галочку `Демо-режим` и убедитесь, что ключи добавлены в Vercel.
@@ -84,10 +96,24 @@ npm test
 
 Чтобы включить регистрацию:
 
-1. Создайте проект в Supabase.
-2. В Vercel добавьте `SUPABASE_URL` и `SUPABASE_ANON_KEY`.
-3. В Supabase Auth settings добавьте URL сайта в разрешённые redirect URLs, например `https://help-moms-1.vercel.app/auth.html`.
-4. Не добавляйте `SUPABASE_SERVICE_ROLE_KEY` на клиент и не публикуйте его в GitHub. Для браузера используется только публичный anon key.
+1. Используйте Supabase project `Project 1` в организации `katyaruhama`.
+2. В Vercel добавьте `SUPABASE_URL`, `SUPABASE_ANON_KEY` и `SUPABASE_SERVICE_ROLE_KEY`.
+3. В Supabase Auth settings включите email/password signups и выключите обязательное подтверждение email.
+4. В Supabase Auth settings добавьте URL сайта в разрешённые redirect URLs, например `https://help-moms-1.vercel.app/auth.html`.
+5. Не добавляйте `SUPABASE_SERVICE_ROLE_KEY` на клиент и не публикуйте его в GitHub. Для браузера используется только публичный anon key.
+
+После регистрации триггер Supabase создаёт профиль пользователя и начисляет 5 кредитов. Демо-режимы не списывают кредиты. Реальный AI-анализ сайта или видео списывает 1 кредит через backend API.
+
+## Supabase Database
+
+В проекте `Project 1` применены миграции `create_profiles_and_credit_ledger`, `tighten_function_execute_privileges` и `remove_profile_rpc_and_fix_search_path`.
+
+- `public.profiles` — профиль пользователя, роль и текущий баланс кредитов.
+- `public.credit_ledger` — история начислений и списаний.
+- `public.handle_new_user()` — триггер после создания `auth.users`, начисляет 5 стартовых кредитов.
+- `public.consume_user_credit()` — защищённая server-only RPC-функция для списания 1 кредита.
+
+RLS включён. Пользователь видит только свой профиль и свою историю кредитов. Из браузера нельзя обновить `credits` напрямую.
 
 ## Backend
 

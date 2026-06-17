@@ -29,11 +29,26 @@ test('auth page has signup and login forms', async () => {
 
 test('auth script uses Supabase signup and password login', async () => {
   const script = await readFile('scripts/auth.js', 'utf8');
+  const accountScript = await readFile('scripts/account.js', 'utf8');
 
-  assert.match(script, /@supabase\/supabase-js/);
+  assert.match(accountScript, /@supabase\/supabase-js/);
+  assert.match(accountScript, /\/api\/config/);
+  assert.match(accountScript, /\.from\('profiles'\)/);
+  assert.match(accountScript, /\.maybeSingle\(\)/);
+  assert.match(accountScript, /getAccessToken/);
   assert.match(script, /auth\.signUp/);
   assert.match(script, /auth\.signInWithPassword/);
-  assert.match(script, /\/api\/config/);
+  assert.match(script, /refreshCreditDisplays/);
+});
+
+test('analysis forms send Authorization header for paid requests', async () => {
+  const siteScript = await readFile('scripts/site.js', 'utf8');
+  const indexHtml = await readFile('index.html', 'utf8');
+
+  assert.match(siteScript, /buildAuthorizedHeaders/);
+  assert.match(siteScript, /headers\.Authorization = `Bearer \$\{token\}`/);
+  assert.match(indexHtml, /buildAnalysisHeaders/);
+  assert.match(indexHtml, /headers\.Authorization = `Bearer \$\{token\}`/);
 });
 
 test('materials page keeps library and video analysis entry points', async () => {

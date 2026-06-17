@@ -7,20 +7,12 @@ initAuth();
 
 async function initAuth() {
   try {
-    const config = await loadConfig();
-
-    if (!config.supabase.configured) {
-      setStatus('Supabase пока не настроен. Добавьте SUPABASE_URL и SUPABASE_ANON_KEY в переменные окружения Vercel.');
-      disableAuthForms(true);
-      return;
-    }
-
-    const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-    const supabase = createClient(config.supabase.url, config.supabase.anonKey);
+    const supabase = await window.mamamAccount.getClient();
 
     await renderSession(supabase);
     supabase.auth.onAuthStateChange(() => {
       renderSession(supabase);
+      window.mamamAccount.refreshCreditDisplays();
     });
 
     bindSignup(supabase);
@@ -30,17 +22,6 @@ async function initAuth() {
     setStatus(error.message || 'Не удалось подключить авторизацию.');
     disableAuthForms(true);
   }
-}
-
-async function loadConfig() {
-  const response = await fetch('/api/config');
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || 'Не удалось загрузить конфигурацию.');
-  }
-
-  return data;
 }
 
 function bindSignup(supabase) {
@@ -54,7 +35,7 @@ function bindSignup(supabase) {
     setResult(result, 'Создаём аккаунт...');
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: payload.email,
         password: payload.password,
         options: {
@@ -71,7 +52,12 @@ function bindSignup(supabase) {
       }
 
       signupForm.reset();
-      setResult(result, 'Готово. Проверьте почту, если в Supabase включено подтверждение email.');
+      await renderSession(supabase);
+      await window.mamamAccount.refreshCreditDisplays();
+      setResult(result, data.session
+        ? 'Аккаунт создан. Вам начислено 5 кредитов.'
+        : 'Аккаунт создан. Если Supabase попросит подтверждение, проверьте настройки email confirmation.'
+      );
     } catch (error) {
       setResult(result, error.message || 'Не удалось создать аккаунт.');
     } finally {
@@ -101,6 +87,8 @@ function bindLogin(supabase) {
       }
 
       loginForm.reset();
+      await renderSession(supabase);
+      await window.mamamAccount.refreshCreditDisplays();
       setResult(result, 'Вы вошли.');
     } catch (error) {
       setResult(result, error.message || 'Не удалось войти.');
@@ -136,7 +124,16 @@ async function renderSession(supabase) {
   }
 
   const name = user.user_metadata?.name || user.email;
-  setStatus(`Вы вошли как ${name}.`);
+  let creditText = '';
+
+  try {
+    const profile = await window.mamamAccount.getProfile();
+    creditText = profile ? ` На балансе ${window.mamamAccount.formatCredits(profile.credits)}.` : '';
+  } catch {
+    creditText = '';
+  }
+
+  setStatus(`Вы вошли как ${name}.${creditText}`);
   if (logoutButton) {
     logoutButton.hidden = false;
   }
